@@ -77,5 +77,15 @@ file extension.  Else omit it."
   "Substitute for `vc-git-push' with the same meaning for PROMPT."
   (vc-git--pushpull "push" prompt (unless prompt `(,(agitate--vc-git-prompt-remote)))))
 
+;;;###autoload
+(defun agitate-git-grep (regexp)
+  "Run `git-grep(1)' for REGEXP in `vc-root-dir'.
+This is a simple wrapper around `vc-git-grep' to streamline the
+basic task of searching for a regexp in the current Git
+repository.  Use the original `vc-git-grep' for its other
+features."
+  (interactive (list (read-regexp "git-grep: " nil 'vc-git-history)))
+  (vc-git-grep regexp "*" (vc-root-dir)))
+
 (provide 'agitate)
 ;;; agitate.el ends here
