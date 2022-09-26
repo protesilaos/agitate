@@ -7,7 +7,7 @@
 ;; URL: https://git.sr.ht/~protesilaos/NOT-YET-AVAILABLE
 ;; Mailing-List: https://lists.sr.ht/~protesilaos/NOT-YET-AVAILABLE
 ;; Version: 0.0.0
-;; Package-Requires: ((emacs "27.1"))
+;; Package-Requires: ((emacs "29.1"))
 ;; Keywords: convenience, version control, git
 
 ;; This file is NOT part of GNU Emacs.
