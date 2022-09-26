@@ -32,6 +32,7 @@
 ;;; Code:
 
 (require 'log-edit)
+(require 'vc-git)
 
 (defgroup agitate ()
   "Work-in-progress."
@@ -61,6 +62,20 @@ With optional prefix argument WITH-FILE-EXTENSION, include the
 file extension.  Else omit it."
   (interactive "P" log-edit-mode)
   (insert (format "%s: " (agitate--log-edit-extract-file with-file-extension))))
+
+;;;; Commands for vc-git (Git backend for the Version Control framework)
+
+(defun agitate--vc-git-prompt-remote ()
+  "Helper prompt for `agitate-git-push'."
+  (when-let ((remotes (process-lines vc-git-program "remote")))
+    (if (length> remotes 1)
+        (completing-read "Select Git remote: " remotes nil t)
+      (car remotes))))
+
+;;;###autoload
+(defun agitate-vc-git-push (prompt)
+  "Substitute for `vc-git-push' with the same meaning for PROMPT."
+  (vc-git--pushpull "push" prompt (unless prompt `(,(agitate--vc-git-prompt-remote)))))
 
 (provide 'agitate)
 ;;; agitate.el ends here
