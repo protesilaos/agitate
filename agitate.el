@@ -31,9 +31,36 @@
 
 ;;; Code:
 
+(require 'log-edit)
+
 (defgroup agitate ()
   "Work-in-progress."
   :group 'vc)
+
+;;;; Commands for log-edit (commit messages)
+
+(defun agitate--log-edit-extract-file (with-file-extension)
+  "Return file from `log-edit-files' without or WITH-FILE-EXTENSION."
+  (when-let* ((files (log-edit-files))
+              (file (if (length> files 1)
+                        (completing-read "Derive shortname from: " files nil t)
+                    (car files)))
+              (name (file-name-nondirectory file)))
+    (if with-file-extension
+        file
+      (file-name-sans-extension file))))
+
+;;;###autoload
+(defun agitate-log-edit-insert-file-name (&optional with-file-extension)
+  "Insert at point file name sans directory from `log-edit-files'.
+
+If multiple files are involved, prompt with completion for one
+among them.
+
+With optional prefix argument WITH-FILE-EXTENSION, include the
+file extension.  Else omit it."
+  (interactive "P" log-edit-mode)
+  (insert (format "%s: " (agitate--log-edit-extract-file with-file-extension))))
 
 (provide 'agitate)
 ;;; agitate.el ends here
