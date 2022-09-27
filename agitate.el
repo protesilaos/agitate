@@ -265,6 +265,20 @@ to the text at point."
   (when (string-match "\\b\\([0-9a-z]+\\) " string)
     (match-string 1 string)))
 
+(defun agitate--vc-git-commit-prompt (&optional file)
+  "Prompt for Git commit and return it as a string.
+With optional FILE, limit the commits to those pertinent to it."
+  (let ((default-directory (vc-root-dir)))
+    (if file
+        (completing-read
+         (format "Select revision of `%s': " file)
+         (process-lines vc-git-program "log" "--oneline" file)
+         nil t)
+      (completing-read
+       "Select revision: "
+       (process-lines vc-git-program "log" "--oneline" "--")
+       nil t))))
+
 ;;;###autoload
 (defun agitate-vc-git-grep (regexp)
   "Run `git-grep(1)' for REGEXP in `vc-root-dir'.
