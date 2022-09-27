@@ -3,9 +3,9 @@
 ;; Copyright (C) 2022  Free Software Foundation, Inc.
 
 ;; Author: Protesilaos Stavrou <info@protesilaos.com>
-;; Maintainer: NOT-YET-AVAILABLE Development <~protesilaos/NOT-YET-AVAILABLE@lists.sr.ht>
-;; URL: https://git.sr.ht/~protesilaos/NOT-YET-AVAILABLE
-;; Mailing-List: https://lists.sr.ht/~protesilaos/NOT-YET-AVAILABLE
+;; Maintainer: Agitate Development <~protesilaos/agitate@lists.sr.ht>
+;; URL: https://git.sr.ht/~protesilaos/agitate
+;; Mailing-List: https://lists.sr.ht/~protesilaos/agitate
 ;; Version: 0.0.0
 ;; Package-Requires: ((emacs "28.1"))
 ;; Keywords: convenience, version control, git
@@ -28,6 +28,10 @@
 ;;; Commentary:
 ;;
 ;; Another Git Interface Trying to Agitate Tranquil Emacsers.
+;;
+;; THIS IS A WORK-IN-PROGRESS.  Consult the README.org of this
+;; repository for further documentation.  Or visit its web page:
+;; <https://protesilaos.com/emacs/agitate>.
 
 ;;; Code:
 
