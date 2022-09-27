@@ -232,7 +232,7 @@ to the text at point."
 ;;;; Commands for vc-git (Git backend for the Version Control framework)
 
 (defun agitate--vc-git-get-hash-from-string (string)
-  "Return commit hash from STRING"
+  "Return commit hash from beginning of STRING"
   (when (string-match "\\b\\([0-9a-z]+\\) " string)
     (match-string 1 string)))
 
