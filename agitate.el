@@ -41,6 +41,23 @@
   :group 'diff
   :group 'vc)
 
+;; Inspired by <https://gitmoji.dev/>, though I think most of those
+;; are superfluous.  Less is more.  THIS IS NOT an implementation of
+;; gitmoji.
+(defcustom agitate-log-edit-emoji-collection
+  '(":art: Refine"
+    ":bug: Fix"
+    ":memo: Document"
+    ":rocket: Update"
+    ":skull: Delete"
+    ":sparkles: Add")
+  "Completion candidates for `agitate-log-edit-emoji-commit'.
+It is recommended to use the :EMOJI: notation, as it works even
+in terminals that cannot output unicode.  Relevant applications
+will render those as their corresponding graphical emoji."
+  :type '(repeat string)
+  :group 'agitate)
+
 ;;;; Commands for diffs
 
 (defvar-local agitate--refine-diff-state nil
@@ -197,6 +214,22 @@ With optional prefix argument WITH-FILE-EXTENSION, include the
 file extension.  Else omit it."
   (interactive "P" log-edit-mode)
   (insert (format "%s: " (agitate--log-edit-extract-file with-file-extension))))
+
+(defvar agitate--log-edit-emoji-commit-history nil
+  "Minibuffer history of `agitate-log-edit-emoji-commit'.")
+
+;;;###autoload
+(defun agitate-log-edit-emoji-commit (emoji-commit)
+  "Insert EMOJI-COMMIT message at point.
+When called interactively, prompt for EMOJI-COMMIT among the
+`agitate-log-edit-emoji-collection'."
+  (interactive
+   (list
+    (completing-read
+     "Select type of commit+emoji: "
+     agitate-log-edit-emoji-collection nil t nil
+     'agitate--log-edit-emoji-commit-history)))
+  (insert emoji-commit))
 
 ;;;; Commands for vc-git (Git backend for the Version Control framework)
 
