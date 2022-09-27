@@ -279,6 +279,23 @@ With optional FILE, limit the commits to those pertinent to it."
        (process-lines vc-git-program "log" "--oneline" "--")
        nil t))))
 
+(defvar agitate-vc-git-show-buffer "*agitate-vc-git-show*"
+  "Buffer for showing a git commit.")
+
+;;;###autoload
+(defun vc-git-find-revision ()
+  "PROOF OF CONCEPT.
+
+Prompt for commit and visit it as a file."
+  (interactive)
+  (when-let* ((file (caadr (vc-deduce-fileset))) ; FIXME 2022-09-27: Better way to get current file?
+              (revision (agitate--vc-git-get-hash-from-string
+                         (agitate--vc-git-commit-prompt file)))
+              (buf "*agitate-vc-git-show*"))
+    (apply 'vc-git-command (get-buffer-create buf) nil file (list "show" revision))
+    (with-current-buffer (pop-to-buffer buf)
+      (diff-mode))))
+
 ;;;###autoload
 (defun agitate-vc-git-grep (regexp)
   "Run `git-grep(1)' for REGEXP in `vc-root-dir'.
