@@ -185,18 +185,15 @@ think most of those are superfluous.  Less is more.
   but prompt for a remote, if needed.  The meaning of =PROMPT= is the
   same as that of ~vc-git-push~.  In such a case, do not prompt for a
   remote. To use this function add it as an override advice to
-  ~vc-git-push~.
+  ~vc-git-push~.  Relevant quote from the source code:
 
-Relevant quote for ~agitate-vc-git-push-prompt-for-remote~ from the
-source code:
-
-#+begin_src emacs-lisp
-;; TODO 2022-09-27: We can have something similar which prompts for a
-;; branch to push to.  There are lots of possibilities.  The idea is
-;; that the user can pick the function they are most likely to use as
-;; their default.  Then they can rely on PROMPT to modify its
-;; behaviour.
-#+end_src
+  #+begin_src emacs-lisp
+  ;; TODO 2022-09-27: We can have something similar which prompts for a
+  ;; branch to push to.  There are lots of possibilities.  The idea is
+  ;; that the user can pick the function they are most likely to use as
+  ;; their default.  Then they can rely on PROMPT to modify its
+  ;; behaviour.
+  #+end_src
 
 * Installation
 :PROPERTIES:
