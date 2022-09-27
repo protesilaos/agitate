@@ -155,7 +155,10 @@ think most of those are superfluous.  Less is more.
 
 #+findex: agitate-vc-git-prompt-format-patch-single
 + ~agitate-vc-git-prompt-format-patch-single~ :: Format patch for a
-  single =COMMIT=.  Prompt for =COMMIT= using minibuffer completion.
+  single =COMMIT=.  If in a log-view buffer, the =COMMIT= is the one
+  at point.  For the details of how that is determined, read the doc
+  string of ~agitate-log-view-kill-revision~.  If there is no such
+  commit at point, prompt for =COMMIT= using minibuffer completion.
   Output the patch file to the return value of the function
   ~vc-root-dir~.  Relevant except from the source code:
 

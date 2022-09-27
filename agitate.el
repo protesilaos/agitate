@@ -277,15 +277,27 @@ to those pertaining to the current file."
     (with-current-buffer (pop-to-buffer buf)
       (diff-mode))))
 
+(defun agitate--vc-git-format-patch-single-behaviour ()
+  "Help `agitate-vc-git-prompt-format-patch-single' with its COMMIT."
+  (if-let ((default-value (cadr (log-view-current-entry (point) t))))
+      default-value
+    (agitate--vc-git-get-hash-from-string (agitate--vc-git-commit-prompt))))
+
 ;;;###autoload
 (defun agitate-vc-git-prompt-format-patch-single (commit)
   "Format patch for a single COMMIT.
-Prompt for COMMIT using minibuffer completion.
+
+If in a log-view buffer, the COMMIT is the one at point.  For the
+details of how that is determined, read the doc string of
+`agitate-log-view-kill-revision'.
+
+If there is no such commit at point, prompt for COMMIT using
+minibuffer completion.
 
 Output the patch file to the return value of the function
 `vc-root-dir'."
   (interactive
-   (list (agitate--vc-git-get-hash-from-string (agitate--vc-git-commit-prompt))))
+   (list (agitate--vc-git-format-patch-single-behaviour)))
   ;; TODO 2022-09-27: Handle the output directory better.  Though I am
   ;; not sure how people work with those.  I normally use the root of
   ;; the current repo (and then clean it) or put everything in the
