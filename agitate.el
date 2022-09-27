@@ -31,6 +31,7 @@
 
 ;;; Code:
 
+(require 'diff)
 (require 'log-edit)
 (require 'log-view)
 (require 'vc-git)
@@ -38,6 +39,39 @@
 (defgroup agitate ()
   "Work-in-progress."
   :group 'vc)
+
+;;;; Commands for diffs
+
+(defvar-local agitate--refine-diff-state nil
+  "Current state of `agitate-diff-refine-cycle'.")
+
+;;;###autoload
+(defun agitate-diff-refine-cycle ()
+  "Cycle current, all, or no refined (word-wise) diff highlighting.
+
+Upon first invocation, refine the diff hunk at point or, when
+none exists, the one closest to it.  On second call, operate on
+the entire buffer.  And on the third time, remove all word-wise
+fontification."
+  (interactive nil diff-mode)
+  (let ((point (point)))
+    (pcase agitate--refine-diff-state
+      ('current
+       (setq-local diff-refine 'font-lock)
+       (font-lock-flush)
+       (goto-char point)
+       (setq agitate--refine-diff-state 'all)
+       (message "Diff refine %s" (propertize "all" 'face 'success)))
+      ('all
+       (revert-buffer)
+       (goto-char point)
+       (recenter)
+       (setq agitate--refine-diff-state nil)
+       (message "Diff refine %s" (propertize "none" 'face 'success)))
+      (_
+       (diff-refine-hunk)
+       (setq agitate--refine-diff-state 'current)
+       (message "Diff refine %s" (propertize "current" 'face 'success))))))
 
 ;;;; Commands for log-view (listings of commits)
 
