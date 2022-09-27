@@ -298,7 +298,8 @@ This is useful to quote a past commit message."
   (kill-new
    (with-temp-buffer
      (apply 'vc-git-command t nil nil (list "log" hash "-1" "--stat" "--no-color" "--"))
-     (buffer-substring-no-properties (point-min) (point-max)))))
+     (buffer-substring-no-properties (point-min) (point-max))))
+  (message "Added %s commit message to `kill-ring'" hash))
 
 ;; TODO 2022-09-27: We can have something similar which prompts for a
 ;; branch to push to.  There are lots of possibilities.  The idea is
