@@ -174,26 +174,6 @@ Add this function to the `diff-mode-hook'."
     (when (derived-mode-p 'diff-mode)
       (outline-minor-mode 1))))
 
-;;;; Commands for log-view (listings of commits)
-
-;;;###autoload
-(defun agitate-log-view-kill-revision ()
-  "Append to `kill-ring' log-view revision at or around point.
-
-When the log-view is in the short format (one compact line per
-revision), the revision is the one on the current line.  If the
-revision is expanded with `log-view-expanded-log-entry-function'
-and point is somewhere inside the expanded text, the revision is
-still the same.
-
-When the log-view is in the long format (detailed view where each
-revision spans several lines), the revision is the one pertinent
-to the text at point."
-  (interactive)
-  (when-let ((revision (cadr (log-view-current-entry (point) t))))
-    (kill-new (format "%s" revision))
-    (message "Copied: %s" revision)))
-
 ;;;; Commands for log-edit (commit messages)
 
 (defun agitate--log-edit-extract-file (with-file-extension)
@@ -234,6 +214,26 @@ When called interactively, prompt for EMOJI-COMMIT among the
      agitate-log-edit-emoji-collection nil t nil
      'agitate--log-edit-emoji-commit-history)))
   (insert emoji-commit))
+
+;;;; Commands for log-view (listings of commits)
+
+;;;###autoload
+(defun agitate-log-view-kill-revision ()
+  "Append to `kill-ring' log-view revision at or around point.
+
+When the log-view is in the short format (one compact line per
+revision), the revision is the one on the current line.  If the
+revision is expanded with `log-view-expanded-log-entry-function'
+and point is somewhere inside the expanded text, the revision is
+still the same.
+
+When the log-view is in the long format (detailed view where each
+revision spans several lines), the revision is the one pertinent
+to the text at point."
+  (interactive)
+  (when-let ((revision (cadr (log-view-current-entry (point) t))))
+    (kill-new (format "%s" revision))
+    (message "Copied: %s" revision)))
 
 ;;;; Commands for vc-git (Git backend for the Version Control framework)
 
