@@ -58,6 +58,10 @@ will render those as their corresponding graphical emoji."
   :type '(repeat string)
   :group 'agitate)
 
+;; TODO 2022-09-27: Learn about "conventional commits" and implement
+;; them like with `agitate-log-edit-emoji-commit':
+;; <https://www.conventionalcommits.org/en/v1.0.0-beta.2/#specification>.
+
 ;;;; Commands for diffs
 
 (defvar-local agitate--refine-diff-state nil
