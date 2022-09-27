@@ -278,6 +278,24 @@ to those pertaining to the current file."
       (diff-mode))))
 
 ;;;###autoload
+(defun agitate-vc-git-prompt-format-patch-single (commit)
+  "Format patch for a single COMMIT.
+Prompt for COMMIT using minibuffer completion.
+
+Output the patch file to the return value of the function
+`vc-root-dir'."
+  (interactive
+   (list (agitate--vc-git-get-hash-from-string (agitate--vc-git-commit-prompt))))
+  ;; TODO 2022-09-27: Handle the output directory better.  Though I am
+  ;; not sure how people work with those.  I normally use the root of
+  ;; the current repo (and then clean it) or put everything in the
+  ;; ~/Desktop or some dedicated "patches" directory.
+  (when-let* ((root (vc-root-dir))
+              (default-directory root))
+    (apply 'vc-git-command nil nil nil
+           (list "format-patch" "-1" commit "--"))))
+
+;;;###autoload
 (defun agitate-vc-git-grep (regexp)
   "Run `git-grep(1)' for REGEXP in `vc-root-dir'.
 This is a simple wrapper around `vc-git-grep' to streamline the
