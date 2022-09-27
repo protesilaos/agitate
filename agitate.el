@@ -55,7 +55,8 @@ none exists, the one closest to it.  On second call, operate on
 the entire buffer.  And on the third time, remove all word-wise
 fontification."
   (interactive nil diff-mode)
-  (let ((point (point)))
+  (when-let (((derived-mode-p 'diff-mode))
+             (point (point)))
     (pcase agitate--refine-diff-state
       ('current
        (setq-local diff-refine 'font-lock)
