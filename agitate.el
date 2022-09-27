@@ -63,17 +63,17 @@ fontification."
        (font-lock-flush)
        (goto-char point)
        (setq agitate--refine-diff-state 'all)
-       (message "Diff refine %s" (propertize "all" 'face 'success)))
+       (message "Diff refine ALL"))
       ('all
        (revert-buffer)
        (goto-char point)
        (recenter)
        (setq agitate--refine-diff-state nil)
-       (message "Diff refine %s" (propertize "none" 'face 'success)))
+       (message "Diff refine NONE"))
       (_
        (diff-refine-hunk)
        (setq agitate--refine-diff-state 'current)
-       (message "Diff refine %s" (propertize "current" 'face 'success))))))
+       (message "Diff refine CURRENT")))))
 
 ;;;###autoload
 (defun agitate-diff-buffer-or-file ()
