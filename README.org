@@ -44,6 +44,201 @@ the GNU ELPA machinery automatically generates an Info manual out of it.
 
 #+toc: headlines 8 insert TOC here, with eight headline levels
 
+* Overview
+:PROPERTIES:
+:CUSTOM_ID: h:0a38126c-ebd0-4157-8af1-4b5bf259d685
+:END:
+
+Agitate is a collection of commands or potentially useful functions
+that expand on the available version control features of Emacs.  Those
+are meant to complement a workflow that relies on the built-in Version
+Control framework and its accoutrements (=diff-mode.el=,
+=log-view.el=, =log-edit.el=, =vc-git.el=, and potentially others).
+
+The following sections document the extras per their scope.
+
+** Extras for diff-mode
+:PROPERTIES:
+:CUSTOM_ID: h:ef659174-f1fe-46c9-ab2a-9089529ba0ac
+:END:
+
+#+findex: agitate-diff-refine-cycle
++ ~agitate-diff-refine-cycle~ :: Cycle current, all, or no refined
+  (word-wise) diff highlighting.  Upon first invocation, refine the
+  diff hunk at point or, when none exists, the one closest to it.  On
+  second call, operate on the entire buffer.  And on the third time,
+  remove all word-wise fontification.
+
+#+findex: agitate-diff-buffer-or-file
++ ~agitate-diff-buffer-or-file~ :: Produce a diff against the file or
+  latest revision.  If the buffer is modified, produce a diff that
+  compares its state to that of the corresponding file.  In simple
+  terms, show the latest unsaved changes. If the buffer is not
+  modified, produce a diff of the file relative to its latest
+  revision.
+
+#+findex: agitate-diff-narrow-dwim
++ ~agitate-diff-narrow-dwim~ :: Narrow to diff hunk or file and widen
+  when already narrowed.  By default narrow to the focused diff hunk.
+  With optional =NARROW-FILE= as a prefix argument, operate on the
+  current file instead.
+
+#+findex: agitate-diff-kill-dwim
++ ~agitate-diff-kill-dwim~ :: PROTOTYPE!!!  Kill hunk or remove the
+  plus/minus signs in current line/region.  When the region is active,
+  remove the plus or minus sign at the start of each line. When the
+  region is not active but point is on a line that starts with a plus
+  or minus sign, remove that sign.  Removing the plus or minus sign
+  means any subsequent commit will not account for them.  If no region
+  is active and the point is not on a line that starts with the plus
+  or minus sign, call `diff-hunk-kill' interactively.
+
+#+findex: agitate-diff-enable-outline-minor-mode
++ ~agitate-diff-enable-outline-minor-mode~ :: Enable
+  ~outline-minor-mode~ with appropriate tweaks for diffs.  This
+  basically gives you folding of diff hunks by means of the
+  ~outline-cycle~ command. Add this function to the ~diff-mode-hook~.
+
+** Extras for log-edit
+:PROPERTIES:
+:CUSTOM_ID: h:7b9679c7-1313-4f40-bfbf-2cabca2d3549
+:END:
+
+#+findex: agitate-log-edit-insert-file-name
++ ~agitate-log-edit-insert-file-name~ :: Insert at point file name
+  sans directory from ~log-edit-files~.  If multiple files are
+  involved, prompt with completion for one among them. With optional
+  prefix argument =WITH-FILE-EXTENSION=, include the file extension.
+  Else omit it.
+
+#+findex: agitate-log-edit-emoji-commit
++ ~agitate-log-edit-emoji-commit~ :: Insert =EMOJI-COMMIT= message at
+  point.  When called interactively, prompt for =EMOJI-COMMIT= among
+  the ~agitate-log-edit-emoji-collection~.
+
+#+vindex: agitate-log-edit-emoji-collection
++ ~agitate-log-edit-emoji-collection~ :: User option whose value is a
+  list of strings that represent completion candidates for
+  ~agitate-log-edit-emoji-commit~.  It is recommended to use the
+  =:EMOJI:= notation, as it works even in terminals that cannot output
+  Unicode.  Relevant applications will render those as their
+  corresponding graphical emoji.
+
+Relevant quote about the emoji commits from the source code:
+
+#+begin_src emacs-lisp
+;; TODO 2022-09-27: Learn about "conventional commits" and implement
+;; them like with `agitate-log-edit-emoji-commit':
+;; <https://www.conventionalcommits.org/en/v1.0.0-beta.2/#specification>.
+#+end_src
+
+The emoji commits are inspired by <https://gitmoji.dev/>, though I
+think most of those are superfluous.  Less is more.
+
+** Extras for log-view
+:PROPERTIES:
+:CUSTOM_ID: h:2a48ff74-6a8f-4fc6-9e14-c9e412857b2d
+:END:
+
+#+findex: agitate-log-view-kill-revision
++ ~agitate-log-view-kill-revision~ :: Append to ~kill-ring~ log-view
+  revision at or around point.  When the log-view is in the short
+  format (one compact line per revision), the revision is the one on
+  the current line.  If the revision is expanded with
+  ~log-view-expanded-log-entry-function~ and point is somewhere inside
+  the expanded text, the revision is still the same. When the log-view
+  is in the long format (detailed view where each revision spans
+  several lines), the revision is the one pertinent to the text at
+  point.
+
+** Extras for vc-git
+:PROPERTIES:
+:CUSTOM_ID: h:f1a1f462-b6db-415a-b8e6-ba23788cb6e3
+:END:
+
+#+findex: agitate-git-grep
++ ~agitate-git-grep~ :: Run ~git-grep(1)~ for =REGEXP= in
+  ~vc-root-dir~.  This is a simple wrapper around ~vc-git-grep~ to
+  streamline the basic task of searching for a regexp in the current
+  Git repository.  Use the original ~vc-git-grep~ for its other
+  features.
+
+#+findex: agitate-vc-git-push-prompt-for-remote
++ ~agitate-vc-git-push-prompt-for-remote~ :: Behave like ~vc-git-push~
+  but prompt for a remote, if needed.  The meaning of =PROMPT= is the
+  same as that of ~vc-git-push~.  In such a case, do not prompt for a
+  remote. To use this function add it as an override advice to
+  ~vc-git-push~.
+
+Relevant quote for ~agitate-vc-git-push-prompt-for-remote~ from the
+source code:
+
+#+begin_src emacs-lisp
+;; TODO 2022-09-27: We can have something similar which prompts for a
+;; branch to push to.  There are lots of possibilities.  The idea is
+;; that the user can pick the function they are most likely to use as
+;; their default.  Then they can rely on PROMPT to modify its
+;; behaviour.
+#+end_src
+
+* Installation
+:PROPERTIES:
+:CUSTOM_ID: h:ac33de13-bc87-4d3b-be69-dec64aa7faa2
+:END:
+#+cindex: Installation instructions
+
+** GNU ELPA package
+:PROPERTIES:
+:CUSTOM_ID: h:068fe283-a5ee-4bbc-8ea0-c2413794b6b2
+:END:
+
+The package is available as =agitate=.  Simply do:
+
+: M-x package-refresh-contents
+: M-x package-install
+
+And search for it.
+
+GNU ELPA provides the latest stable release.  Those who prefer to follow
+the development process in order to report bugs or suggest changes, can
+use the version of the package from the GNU-devel ELPA archive.  Read:
+https://protesilaos.com/codelog/2022-05-13-emacs-elpa-devel/.
+
+** Manual installation
+:PROPERTIES:
+:CUSTOM_ID: h:deaaba28-9236-45b8-925b-1e35ff78d2a0
+:END:
+
+Assuming your Emacs files are found in =~/.emacs.d/=, execute the
+following commands in a shell prompt:
+
+#+begin_src sh
+cd ~/.emacs.d
+
+# Create a directory for manually-installed packages
+mkdir manual-packages
+
+# Go to the new directory
+cd manual-packages
+
+# Clone this repo, naming it "agitate"
+git clone https://git.sr.ht/~protesilaos/agitate agitate
+#+end_src
+
+Finally, in your =init.el= (or equivalent) evaluate this:
+
+#+begin_src emacs-lisp
+;; Make Elisp files in that directory available to the user.
+(add-to-list 'load-path "~/.emacs.d/manual-packages/agitate")
+#+end_src
+
+Everything is in place to set up the package.
+
+* TODO Sample configuration
+:PROPERTIES:
+:CUSTOM_ID: h:9ea57def-7883-44bd-b27e-54127457b808
+:END:
+
 * COPYING
 :PROPERTIES:
 :CUSTOM_ID: h:22035775-da3a-4f11-b078-bbe76ef8a93b
