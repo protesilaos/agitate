@@ -153,8 +153,8 @@ think most of those are superfluous.  Less is more.
   =git-show(1)= on it. With optional =CURRENT-FILE= as prefix
   argument, limit the commits to those pertaining to the current file.
 
-#+findex: agitate-vc-git-prompt-format-patch-single
-+ ~agitate-vc-git-prompt-format-patch-single~ :: Format patch for a
+#+findex: agitate-vc-git-format-patch-single
++ ~agitate-vc-git-format-patch-single~ :: Format patch for a
   single =COMMIT=.  If in a log-view buffer, the =COMMIT= is the one
   at point.  For the details of how that is determined, read the doc
   string of ~agitate-log-view-kill-revision~.  If there is no such

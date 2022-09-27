@@ -278,13 +278,13 @@ to those pertaining to the current file."
       (diff-mode))))
 
 (defun agitate--vc-git-format-patch-single-behaviour ()
-  "Help `agitate-vc-git-prompt-format-patch-single' with its COMMIT."
+  "Help `agitate-vc-git-format-patch-single' with its COMMIT."
   (if-let ((default-value (cadr (log-view-current-entry (point) t))))
       default-value
     (agitate--vc-git-get-hash-from-string (agitate--vc-git-commit-prompt))))
 
 ;;;###autoload
-(defun agitate-vc-git-prompt-format-patch-single (commit)
+(defun agitate-vc-git-format-patch-single (commit)
   "Format patch for a single COMMIT.
 
 If in a log-view buffer, the COMMIT is the one at point.  For the
