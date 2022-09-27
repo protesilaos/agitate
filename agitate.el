@@ -74,6 +74,21 @@ fontification."
        (setq agitate--refine-diff-state 'current)
        (message "Diff refine %s" (propertize "current" 'face 'success))))))
 
+;;;###autoload
+(defun agitate-diff-buffer-or-file ()
+  "Produce a diff against the file or latest revision.
+
+If the buffer is modified, produce a diff that compares its state
+to that of the corresponding file.  In simple terms, show the
+latest unsaved changes.
+
+If the buffer is not modified, produce a diff of the file
+relative to its latest revision."
+  (interactive)
+    (if (buffer-modified-p)
+          (diff-buffer-with-file (current-buffer))
+      (vc-diff)))
+
 ;;;; Commands for log-view (listings of commits)
 
 ;;;###autoload
