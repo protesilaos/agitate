@@ -62,7 +62,7 @@ will render those as their corresponding graphical emoji."
 ;; them like with `agitate-log-edit-emoji-commit':
 ;; <https://www.conventionalcommits.org/en/v1.0.0-beta.2/#specification>.
 
-;;;; Commands for diffs
+;;;; Commands for diff-mode
 
 (defvar-local agitate--refine-diff-state nil
   "Current state of `agitate-diff-refine-cycle'.")
