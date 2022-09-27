@@ -38,6 +38,7 @@
 (require 'diff)
 (require 'log-edit)
 (require 'log-view)
+(require 'vc)
 (require 'vc-git)
 
 (defgroup agitate ()
@@ -232,13 +233,14 @@ to the text at point."
 ;;;; Commands for vc-git (Git backend for the Version Control framework)
 
 (defun agitate--vc-git-get-hash-from-string (string)
-  "Return commit hash from beginning of STRING"
+  "Return commit hash from beginning of STRING."
   (when (string-match "\\b\\([0-9a-z]+\\) " string)
     (match-string 1 string)))
 
 (defun agitate--vc-git-commit-prompt (&optional file long)
   "Prompt for Git commit and return it as a string.
-With optional FILE, limit the commits to those pertinent to it."
+With optional FILE, limit the commits to those pertinent to it.
+With optional LONG do not abbreviate commit hashes."
   (let ((default-directory (vc-root-dir))
         (format (if long "--pretty=oneline" "--oneline")))
     (if file
