@@ -208,7 +208,7 @@ file extension.  Else omit it."
       (car remotes))))
 
 ;;;###autoload
-(defun agitate-vc-git-push (prompt)
+(defun agitate-vc-git-push-prompt-for-remote (prompt)
   "Behave like `vc-git-push' but prompt for a remote, if needed.
 The meaning of PROMPT is the same as that of `vc-git-push'.  In
 such a case, do not prompt for a remote.
