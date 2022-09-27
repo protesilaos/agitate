@@ -263,6 +263,7 @@ With optional LONG do not abbreviate commit hashes."
 Prompt for commit and run `git-show(1)' on it.
 With optional CURRENT-FILE as prefix argument, limit the commits
 to those pertaining to the current file."
+  (declare (interactive-only t))
   (interactive "P")
   (when-let* ((file (caadr (vc-deduce-fileset))) ; FIXME 2022-09-27: Better way to get current file?
               (revision (agitate--vc-git-get-hash-from-string
