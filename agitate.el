@@ -209,7 +209,12 @@ file extension.  Else omit it."
 
 ;;;###autoload
 (defun agitate-vc-git-push (prompt)
-  "Substitute for `vc-git-push' with the same meaning for PROMPT."
+  "Behave like `vc-git-push' but prompt for a remote, if needed.
+The meaning of PROMPT is the same as that of `vc-git-push'.  In
+such a case, do not prompt for a remote.
+
+To use this function add it as an override advice to
+`vc-git-push'."
   (vc-git--pushpull "push" prompt (unless prompt `(,(agitate--vc-git-prompt-remote)))))
 
 ;;;###autoload
