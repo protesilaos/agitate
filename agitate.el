@@ -130,7 +130,7 @@ to the text at point."
 (defun agitate--log-edit-extract-file (with-file-extension)
   "Return file from `log-edit-files' without or WITH-FILE-EXTENSION."
   (when-let* ((files (log-edit-files))
-              (file (if (> (length files) 1)
+              (file (if (length> files 1)
                         (completing-read "Derive shortname from: " files nil t)
                     (car files)))
               (name (file-name-nondirectory file)))
@@ -155,7 +155,7 @@ file extension.  Else omit it."
 (defun agitate--vc-git-prompt-remote ()
   "Helper prompt for `agitate-git-push'."
   (when-let ((remotes (process-lines vc-git-program "remote")))
-    (if (> (length remotes) 1)
+    (if (length> remotes 1)
         (completing-read "Select Git remote: " remotes nil t)
       (car remotes))))
 
