@@ -91,7 +91,7 @@ The following sections document the extras per their scope.
   or minus sign, remove that sign.  Removing the plus or minus sign
   means any subsequent commit will not account for them.  If no region
   is active and the point is not on a line that starts with the plus
-  or minus sign, call `diff-hunk-kill' interactively.
+  or minus sign, call ~diff-hunk-kill~ interactively.
 
 #+findex: agitate-diff-enable-outline-minor-mode
 + ~agitate-diff-enable-outline-minor-mode~ :: Enable
