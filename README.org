@@ -158,8 +158,8 @@ think most of those are superfluous.  Less is more.
 :CUSTOM_ID: h:f1a1f462-b6db-415a-b8e6-ba23788cb6e3
 :END:
 
-#+findex: agitate-git-grep
-+ ~agitate-git-grep~ :: Run ~git-grep(1)~ for =REGEXP= in
+#+findex: agitate-vc-git-grep
++ ~agitate-vc-git-grep~ :: Run ~git-grep(1)~ for =REGEXP= in
   ~vc-root-dir~.  This is a simple wrapper around ~vc-git-grep~ to
   streamline the basic task of searching for a regexp in the current
   Git repository.  Use the original ~vc-git-grep~ for its other

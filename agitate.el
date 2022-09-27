@@ -261,7 +261,7 @@ to the text at point."
 ;;;; Commands for vc-git (Git backend for the Version Control framework)
 
 ;;;###autoload
-(defun agitate-git-grep (regexp)
+(defun agitate-vc-git-grep (regexp)
   "Run `git-grep(1)' for REGEXP in `vc-root-dir'.
 This is a simple wrapper around `vc-git-grep' to streamline the
 basic task of searching for a regexp in the current Git
