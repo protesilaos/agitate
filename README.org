@@ -148,6 +148,11 @@ think most of those are superfluous.  Less is more.
 :CUSTOM_ID: h:f1a1f462-b6db-415a-b8e6-ba23788cb6e3
 :END:
 
+#+findex: agitate-vc-git-show
++ ~agitate-vc-git-show~ :: PROTOTYPE.  Prompt for commit and run
+  =git-show(1)= on it. With optional =CURRENT-FILE= as prefix
+  argument, limit the commits to those pertaining to the current file.
+
 #+findex: agitate-vc-git-grep
 + ~agitate-vc-git-grep~ :: Run ~git-grep(1)~ for =REGEXP= in
   ~vc-root-dir~.  This is a simple wrapper around ~vc-git-grep~ to

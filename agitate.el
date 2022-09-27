@@ -255,14 +255,22 @@ With optional FILE, limit the commits to those pertinent to it."
   "Buffer for showing a git commit.")
 
 ;;;###autoload
-(defun vc-git-show ()
-  "PROOF OF CONCEPT."
-  (interactive)
+(defun agitate-vc-git-show (&optional current-file)
+  "PROTOTYPE.
+
+Prompt for commit and run `git-show(1)' on it.
+With optional CURRENT-FILE as prefix argument, limit the commits
+to those pertaining to the current file."
+  (interactive "P")
   (when-let* ((file (caadr (vc-deduce-fileset))) ; FIXME 2022-09-27: Better way to get current file?
               (revision (agitate--vc-git-get-hash-from-string
-                         (agitate--vc-git-commit-prompt file)))
+                         (agitate--vc-git-commit-prompt
+                          (when current-file file))))
               (buf "*agitate-vc-git-show*"))
-    (apply 'vc-git-command (get-buffer-create buf) nil file (list "show" revision))
+    (apply 'vc-git-command (get-buffer-create buf) nil (when current-file file)
+           (list "show" "--patch-with-stat" revision))
+    ;; TODO 2022-09-27: What else do we need to set up in such a
+    ;; buffer?
     (with-current-buffer (pop-to-buffer buf)
       (diff-mode))))
 
