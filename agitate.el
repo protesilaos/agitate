@@ -200,6 +200,16 @@ file extension.  Else omit it."
 
 ;;;; Commands for vc-git (Git backend for the Version Control framework)
 
+;;;###autoload
+(defun agitate-git-grep (regexp)
+  "Run `git-grep(1)' for REGEXP in `vc-root-dir'.
+This is a simple wrapper around `vc-git-grep' to streamline the
+basic task of searching for a regexp in the current Git
+repository.  Use the original `vc-git-grep' for its other
+features."
+  (interactive (list (read-regexp "git-grep: " nil 'vc-git-history)))
+  (vc-git-grep regexp "*" (vc-root-dir)))
+
 (defun agitate--vc-git-prompt-remote ()
   "Helper prompt for `agitate-git-push'."
   (when-let ((remotes (process-lines vc-git-program "remote")))
@@ -216,16 +226,6 @@ such a case, do not prompt for a remote.
 To use this function add it as an override advice to
 `vc-git-push'."
   (vc-git--pushpull "push" prompt (unless prompt `(,(agitate--vc-git-prompt-remote)))))
-
-;;;###autoload
-(defun agitate-git-grep (regexp)
-  "Run `git-grep(1)' for REGEXP in `vc-root-dir'.
-This is a simple wrapper around `vc-git-grep' to streamline the
-basic task of searching for a regexp in the current Git
-repository.  Use the original `vc-git-grep' for its other
-features."
-  (interactive (list (read-regexp "git-grep: " nil 'vc-git-history)))
-  (vc-git-grep regexp "*" (vc-root-dir)))
 
 (provide 'agitate)
 ;;; agitate.el ends here
