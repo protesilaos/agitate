@@ -236,18 +236,19 @@ to the text at point."
   (when (string-match "\\b\\([0-9a-z]+\\) " string)
     (match-string 1 string)))
 
-(defun agitate--vc-git-commit-prompt (&optional file)
+(defun agitate--vc-git-commit-prompt (&optional file long)
   "Prompt for Git commit and return it as a string.
 With optional FILE, limit the commits to those pertinent to it."
-  (let ((default-directory (vc-root-dir)))
+  (let ((default-directory (vc-root-dir))
+        (format (if long "--pretty=oneline" "--oneline")))
     (if file
         (completing-read
          (format "Select revision of `%s': " file)
-         (process-lines vc-git-program "log" "--oneline" file)
+         (process-lines vc-git-program "log" format file)
          nil t)
       (completing-read
        "Select revision: "
-       (process-lines vc-git-program "log" "--oneline" "--")
+       (process-lines vc-git-program "log" format "--")
        nil t))))
 
 (defvar agitate-vc-git-show-buffer "*agitate-vc-git-show*"
