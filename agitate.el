@@ -277,7 +277,7 @@ to those pertaining to the current file."
     (with-current-buffer (pop-to-buffer buf)
       (diff-mode))))
 
-(defun agitate--vc-git-format-patch-single-behaviour ()
+(defun agitate--vc-git-format-patch-single-commit ()
   "Help `agitate-vc-git-format-patch-single' with its COMMIT."
   (if-let ((default-value (cadr (log-view-current-entry (point) t))))
       default-value
@@ -296,8 +296,7 @@ minibuffer completion.
 
 Output the patch file to the return value of the function
 `vc-root-dir'."
-  (interactive
-   (list (agitate--vc-git-format-patch-single-behaviour)))
+  (interactive (list (agitate--vc-git-format-patch-single-commit)))
   ;; TODO 2022-09-27: Handle the output directory better.  Though I am
   ;; not sure how people work with those.  I normally use the root of
   ;; the current repo (and then clean it) or put everything in the
