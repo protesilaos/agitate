@@ -86,9 +86,9 @@ latest unsaved changes.
 If the buffer is not modified, produce a diff of the file
 relative to its latest revision."
   (interactive)
-    (if (buffer-modified-p)
-          (diff-buffer-with-file (current-buffer))
-      (vc-diff)))
+  (if (buffer-modified-p)
+      (diff-buffer-with-file (current-buffer))
+    (vc-diff)))
 
 ;;;###autoload
 (defun agitate-diff-narrow-dwim (&optional narrow-file)
@@ -180,7 +180,7 @@ to the text at point."
   (when-let* ((files (log-edit-files))
               (file (if (length> files 1)
                         (completing-read "Derive shortname from: " files nil t)
-                    (car files)))
+                      (car files)))
               (name (file-name-nondirectory file)))
     (if with-file-extension
         file
