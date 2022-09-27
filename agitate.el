@@ -7,7 +7,7 @@
 ;; URL: https://git.sr.ht/~protesilaos/NOT-YET-AVAILABLE
 ;; Mailing-List: https://lists.sr.ht/~protesilaos/NOT-YET-AVAILABLE
 ;; Version: 0.0.0
-;; Package-Requires: ((emacs "27.1"))
+;; Package-Requires: ((emacs "28.1"))
 ;; Keywords: convenience, version control, git
 
 ;; This file is NOT part of GNU Emacs.
@@ -89,6 +89,21 @@ relative to its latest revision."
     (if (buffer-modified-p)
           (diff-buffer-with-file (current-buffer))
       (vc-diff)))
+
+(defvar outline-minor-mode-highlight)
+
+;;;###autoload
+(defun agitate-enable-outline-minor-mode ()
+  "Enable `outline-minor-mode' with appropriate tweaks for diffs.
+
+This basically gives you folding of diff hunks by means of the
+`outline-cycle' command.
+
+Add this function to the `diff-mode-hook'."
+  (require 'outline)
+  (let ((outline-minor-mode-highlight nil))
+    (when (derived-mode-p 'diff-mode)
+      (outline-minor-mode 1))))
 
 ;;;; Commands for log-view (listings of commits)
 
