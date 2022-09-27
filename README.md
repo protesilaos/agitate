@@ -14,3 +14,4 @@ Control framework and its accoutrements (`diff-mode.el`,
     + GitHub: <https://github.com/protesilaos/agitate>
     + GitLab: <https://gitlab.com/protesilaos/agitate>
 + Mailing list: <https://lists.sr.ht/~protesilaos/agitate>
++ Backronym: Another Git Interface Trying to Agitate Tranquil Emacsers
