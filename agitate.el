@@ -1,4 +1,4 @@
-;;; agitate.el --- WORK-IN-PROGRESS -*- lexical-binding: t -*-
+;;; agitate.el --- Extras for diff-mode, vc-git, log-edit, log-view -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2022  Free Software Foundation, Inc.
 
@@ -37,7 +37,8 @@
 (require 'vc-git)
 
 (defgroup agitate ()
-  "Work-in-progress."
+  "Extras for `diff-mode', vc-git, `log-edit-mode', `log-view-mode'."
+  :group 'diff
   :group 'vc)
 
 ;;;; Commands for diffs
