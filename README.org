@@ -124,13 +124,15 @@ The following sections document the extras per their scope.
   Unicode.  Relevant applications will render those as their
   corresponding graphical emoji.
 
-Relevant quote about the emoji commits from the source code:
+#+findex: agitate-log-edit-conventional-commit
++ ~agitate-log-edit-conventional-commit~ :: Insert conventional commit
+  message at point.  Prompt for entry among those declared in
+  ~agitate-log-edit-conventional-commits-collection~.
 
-#+begin_src emacs-lisp
-;; TODO 2022-09-27: Learn about "conventional commits" and implement
-;; them like with `agitate-log-edit-emoji-commit':
-;; <https://www.conventionalcommits.org/en/v1.0.0-beta.2/#specification>.
-#+end_src
+#+vindex: agitate-log-edit-conventional-commits-collection
++ ~agitate-log-edit-conventional-commits-collection~ :: User options
+  whose value is a list of strings that represent completion
+  candidates for ~agitate-log-edit-conventional-commit~.
 
 The emoji commits are inspired by <https://gitmoji.dev/>, though I
 think most of those are superfluous.  Less is more.

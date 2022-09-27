@@ -62,9 +62,12 @@ will render those as their corresponding graphical emoji."
   :type '(repeat string)
   :group 'agitate)
 
-;; TODO 2022-09-27: Learn about "conventional commits" and implement
-;; them like with `agitate-log-edit-emoji-commit':
-;; <https://www.conventionalcommits.org/en/v1.0.0-beta.2/#specification>.
+(defcustom agitate-log-edit-conventional-commits-collection
+  '("build" "chore" "ci" "docs" "feat" "fix" "perf" "polish"
+    "refactor" "revert" "style" "test" "types" "workflow")
+  "Completion candidates for `agitate-log-edit-conventional-commit'."
+  :type '(repeat string)
+  :group 'agitate)
 
 ;;;; Commands for diff-mode
 
@@ -207,17 +210,33 @@ file extension.  Else omit it."
   "Minibuffer history of `agitate-log-edit-emoji-commit'.")
 
 ;;;###autoload
-(defun agitate-log-edit-emoji-commit (emoji-commit)
-  "Insert EMOJI-COMMIT message at point.
-When called interactively, prompt for EMOJI-COMMIT among the
-`agitate-log-edit-emoji-collection'."
-  (interactive
-   (list
+(defun agitate-log-edit-emoji-commit ()
+  "Insert emoji commit message at point.
+Prompt for entry among `agitate-log-edit-emoji-collection'."
+  (declare (interactive-only t))
+  (interactive)
+  (insert
+   (completing-read
+    "Select type of commit+emoji: "
+    agitate-log-edit-emoji-collection nil t nil
+    'agitate--log-edit-emoji-commit-history)))
+
+(defvar agitate--log-edit-conventional-commits-history nil
+  "Minibuffer history of `agitate-log-edit-conventional-commit'.")
+
+(defun agitate-log-edit-conventional-commit ()
+  "Insert conventional commit message at point.
+Prompt for entry among those declared in
+`agitate-log-edit-conventional-commits-collection'."
+  (declare (interactive-only t))
+  (interactive)
+  (insert
+   (concat
     (completing-read
-     "Select type of commit+emoji: "
-     agitate-log-edit-emoji-collection nil t nil
-     'agitate--log-edit-emoji-commit-history)))
-  (insert emoji-commit))
+     "Select type of conventional commit: "
+     agitate-log-edit-conventional-commits-collection nil t nil
+     'agitate--log-edit-conventional-commits-history)
+    ": ")))
 
 ;;;; Commands for log-view (listings of commits)
 
