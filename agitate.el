@@ -162,7 +162,7 @@ with the plus or minus sign, call `diff-hunk-kill' interactively."
 (defvar outline-minor-mode-highlight)
 
 ;;;###autoload
-(defun agitate-enable-outline-minor-mode ()
+(defun agitate-diff-enable-outline-minor-mode ()
   "Enable `outline-minor-mode' with appropriate tweaks for diffs.
 
 This basically gives you folding of diff hunks by means of the
