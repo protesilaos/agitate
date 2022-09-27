@@ -153,7 +153,7 @@ think most of those are superfluous.  Less is more.
   ~vc-root-dir~.  This is a simple wrapper around ~vc-git-grep~ to
   streamline the basic task of searching for a regexp in the current
   Git repository.  Use the original ~vc-git-grep~ for its other
-  features.
+  arguments.
 
 #+findex: agitate-vc-git-kill-commit-message
 + ~agitate-vc-git-kill-commit-message~ :: Append to ~kill-ring~

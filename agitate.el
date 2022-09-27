@@ -272,7 +272,7 @@ With optional FILE, limit the commits to those pertinent to it."
 This is a simple wrapper around `vc-git-grep' to streamline the
 basic task of searching for a regexp in the current Git
 repository.  Use the original `vc-git-grep' for its other
-features."
+arguments."
   (interactive (list (read-regexp "git-grep: " nil 'vc-git-history)))
   (vc-git-grep regexp "*" (vc-root-dir)))
 
