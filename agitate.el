@@ -260,6 +260,11 @@ to the text at point."
 
 ;;;; Commands for vc-git (Git backend for the Version Control framework)
 
+(defun agitate--vc-git-get-hash-from-string (string)
+  "Return commit hash from STRING"
+  (when (string-match "\\b\\([0-9a-z]+\\) " string)
+    (match-string 1 string)))
+
 ;;;###autoload
 (defun agitate-vc-git-grep (regexp)
   "Run `git-grep(1)' for REGEXP in `vc-root-dir'.
