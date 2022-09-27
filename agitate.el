@@ -90,6 +90,25 @@ relative to its latest revision."
           (diff-buffer-with-file (current-buffer))
       (vc-diff)))
 
+;;;###autoload
+(defun agitate-diff-narrow-dwim (&optional narrow-file)
+  "Narrow to diff hunk or file and widen when already narrowed.
+By default narrow to the focused diff hunk.  With optional
+NARROW-FILE as a prefix argument, operate on the current file
+instead."
+  (interactive "P")
+  (when (derived-mode-p 'diff-mode)
+    (cond
+     ((buffer-narrowed-p)
+      (widen)
+      (message "WIDENED the view"))
+     (narrow-file
+      (diff-restrict-view narrow-file)
+      (message "Narrowed to FILE"))
+     (t
+      (diff-restrict-view)
+      (message "Narrowed to diff HUNK")))))
+
 (defvar outline-minor-mode-highlight)
 
 ;;;###autoload
