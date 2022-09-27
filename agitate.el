@@ -53,7 +53,7 @@
     ":sparkles: Add")
   "Completion candidates for `agitate-log-edit-emoji-commit'.
 It is recommended to use the :EMOJI: notation, as it works even
-in terminals that cannot output unicode.  Relevant applications
+in terminals that cannot output Unicode.  Relevant applications
 will render those as their corresponding graphical emoji."
   :type '(repeat string)
   :group 'agitate)
