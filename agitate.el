@@ -217,6 +217,12 @@ features."
         (completing-read "Select Git remote: " remotes nil t)
       (car remotes))))
 
+;; TODO 2022-09-27: We can have something similar which prompts for a
+;; branch to push to.  There are lots of possibilities.  The idea is
+;; that the user can pick the function they are most likely to use as
+;; their default.  Then they can rely on PROMPT to modify its
+;; behaviour.
+
 ;;;###autoload
 (defun agitate-vc-git-push-prompt-for-remote (prompt)
   "Behave like `vc-git-push' but prompt for a remote, if needed.
