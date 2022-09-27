@@ -254,10 +254,8 @@ With optional FILE, limit the commits to those pertinent to it."
   "Buffer for showing a git commit.")
 
 ;;;###autoload
-(defun vc-git-find-revision ()
-  "PROOF OF CONCEPT.
-
-Prompt for commit and visit it as a file."
+(defun vc-git-show ()
+  "PROOF OF CONCEPT."
   (interactive)
   (when-let* ((file (caadr (vc-deduce-fileset))) ; FIXME 2022-09-27: Better way to get current file?
               (revision (agitate--vc-git-get-hash-from-string
