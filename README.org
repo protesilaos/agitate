@@ -125,7 +125,8 @@ The following sections document the extras per their scope.
   candidates for ~agitate-log-edit-conventional-commit~.
 
 The emoji commits are inspired by <https://gitmoji.dev/>, though I
-think most of those are superfluous.  Less is more.
+think most of those are superfluous.  Less is more.  The "conventional
+commits" are documented here: <https://www.conventionalcommits.org/en/v1.0.0/>.
 
 ** Extras for log-view
 :PROPERTIES:

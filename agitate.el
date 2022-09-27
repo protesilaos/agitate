@@ -47,8 +47,7 @@
   :group 'vc)
 
 ;; Inspired by <https://gitmoji.dev/>, though I think most of those
-;; are superfluous.  Less is more.  THIS IS NOT an implementation of
-;; gitmoji.
+;; are superfluous.  Less is more.
 (defcustom agitate-log-edit-emoji-collection
   '(":art: Refine"
     ":bug: Fix"
@@ -63,6 +62,7 @@ will render those as their corresponding graphical emoji."
   :type '(repeat string)
   :group 'agitate)
 
+;; Check <https://www.conventionalcommits.org/en/v1.0.0/>.
 (defcustom agitate-log-edit-conventional-commits-collection
   '("build" "chore" "ci" "docs" "feat" "fix" "perf" "polish"
     "refactor" "revert" "style" "test" "types" "workflow")
