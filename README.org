@@ -165,6 +165,13 @@ think most of those are superfluous.  Less is more.
   Git repository.  Use the original ~vc-git-grep~ for its other
   features.
 
+#+findex: agitate-vc-git-kill-commit-message
++ ~agitate-vc-git-kill-commit-message~ :: Append to ~kill-ring~
+  message of commit with =HASH= identifier.  Prompt for =HASH= as a
+  string.  When point is in a log-view buffer, make the revision at
+  point the default value of the prompt.  This is useful to quote a
+  past commit message.
+
 #+findex: agitate-vc-git-push-prompt-for-remote
 + ~agitate-vc-git-push-prompt-for-remote~ :: Behave like ~vc-git-push~
   but prompt for a remote, if needed.  The meaning of =PROMPT= is the

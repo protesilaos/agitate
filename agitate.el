@@ -277,6 +277,29 @@ features."
         (completing-read "Select Git remote: " remotes nil t)
       (car remotes))))
 
+(defvar agitate--vc-git-kill-commit-message-history nil
+  "Minibuffer history of `agitate-vc-git-kill-commit-message'.")
+
+(defun agitate--vc-git-kill-commit-message-prompt ()
+  "Helper prompt for `agitate-vc-git-kill-commit-message'."
+  (if-let ((default-value (cadr (log-view-current-entry (point) t))))
+      (read-string (format "Commit HASH [%s]: " default-value)
+                   nil 'agitate--vc-git-kill-commit-message-history default-value)
+    (read-string "Commit HASH: " nil 'agitate--vc-git-kill-commit-message-history)))
+
+;;;###autoload
+(defun agitate-vc-git-kill-commit-message (hash)
+  "Append to `kill-ring' message of commit with HASH identifier.
+Prompt for HASH as a string.  When point is in a log-view buffer,
+make the revision at point the default value of the prompt.
+
+This is useful to quote a past commit message."
+  (interactive (list (agitate--vc-git-kill-commit-message-prompt)))
+  (kill-new
+   (with-temp-buffer
+     (apply 'vc-git-command t nil nil (list "log" hash "-1" "--stat" "--no-color" "--"))
+     (buffer-substring-no-properties (point-min) (point-max)))))
+
 ;; TODO 2022-09-27: We can have something similar which prompts for a
 ;; branch to push to.  There are lots of possibilities.  The idea is
 ;; that the user can pick the function they are most likely to use as
