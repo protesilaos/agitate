@@ -234,7 +234,7 @@ to the text at point."
 
 (defun agitate--vc-git-get-hash-from-string (string)
   "Return commit hash from beginning of STRING."
-  (when (string-match "\\b\\([0-9a-z]+\\) " string)
+  (when (string-match "\\b\\([0-9a-z]+\\)\\(\s+\\)?" string)
     (match-string 1 string)))
 
 (defun agitate--vc-git-commit-prompt (&optional file long)
