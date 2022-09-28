@@ -144,6 +144,10 @@ commits" are documented here: <https://www.conventionalcommits.org/en/v1.0.0/>.
   several lines), the revision is the one pertinent to the text at
   point.
 
+#+findex: agitate-log-view-kill-revision-expanded
++ ~agitate-log-view-kill-revision-expanded~ :: PROTOTYPE.  Append to
+  ~kill-ring~ expanded message of log-view revision at point.
+
 ** Extras for vc-git
 :PROPERTIES:
 :CUSTOM_ID: h:f1a1f462-b6db-415a-b8e6-ba23788cb6e3

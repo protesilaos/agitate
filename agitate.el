@@ -230,6 +230,37 @@ to the text at point."
     (kill-new (format "%s" revision))
     (message "Copied: %s" revision)))
 
+(defun agitate--log-view-revision-expanded-bounds (&optional back)
+  "Return position of expanded log-view message.
+With optional BACK, find the beginning, else the end."
+  (let ((motion (if back
+                    (list 're-search-backward 'log-view-msg-prev 1)
+                  (list 're-search-forward 'log-view-msg-next -1))))
+    (save-excursion
+      (funcall (nth 0 motion) log-view-message-re nil t)
+      (forward-line (nth 2 motion))
+      (point))))
+
+  ;; TODO 2022-09-28: Maybe have a do-what-I-mean behaviour to expand
+  ;; the entry if necessary?  Or maybe expand it to get the message
+  ;; and then contract it again?  Keeping it simple seems appropriate,
+  ;; but we will see how this evolves.
+
+;;;###autoload
+(defun agitate-log-view-kill-revision-expanded ()
+  "PROTOTYPE Append to `kill-ring' expanded message of log-view revision at point."
+  (interactive nil log-view-mode)
+  (let ((pos (point)))
+    ;; TODO 2022-09-28: Also test when we are on the line of the
+    ;; revision, with the expanded entry right below.
+    (when (log-view-inside-comment-p pos)
+      (kill-new
+       (buffer-substring-no-properties
+        (agitate--log-view-revision-expanded-bounds :back)
+        (agitate--log-view-revision-expanded-bounds)))
+      (message "Copied message of `%s' revision"
+               (cadr (log-view-current-entry pos t))))))
+
 ;;;; Commands for vc-git (Git backend for the Version Control framework)
 
 (defun agitate--vc-git-get-hash-from-string (string)
