@@ -163,8 +163,8 @@ Add this function to the `diff-mode-hook'."
                       (car files)))
               (name (file-name-nondirectory file)))
     (if with-file-extension
-        file
-      (file-name-sans-extension file))))
+        name
+      (file-name-sans-extension name))))
 
 ;;;###autoload
 (defun agitate-log-edit-insert-file-name (&optional with-file-extension)
