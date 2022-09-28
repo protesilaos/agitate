@@ -256,10 +256,43 @@ Finally, in your =init.el= (or equivalent) evaluate this:
 
 Everything is in place to set up the package.
 
-* TODO Sample configuration
+* Sample configuration
 :PROPERTIES:
 :CUSTOM_ID: h:9ea57def-7883-44bd-b27e-54127457b808
 :END:
+
+#+begin_src emacs-lisp
+;; These are all OPTIONAL.  You should just use whatever key bindings
+;; or setup you prefer.
+
+;; Agitate is still a WORK-IN-PROGRESS.
+
+(require 'agitate "/home/prot/Git/Projects/agitate/agitate.el")
+
+(add-hook 'diff-mode-hook #'agitate-diff-enable-outline-minor-mode)
+
+(advice-add #'vc-git-push :override #'agitate-vc-git-push-prompt-for-remote)
+
+(let ((map global-map))
+  (define-key map (kbd "C-x v =") #'agitate-diff-buffer-or-file) ; replace `vc-diff'
+  (define-key map (kbd "C-x v g") #'agitate-vc-git-grep) ; replace `vc-annotate'
+  (define-key map (kbd "C-x v s") #'agitate-vc-git-show)
+  (define-key map (kbd "C-x v c") #'agitate-vc-git-format-patch-single))
+(let ((map diff-mode-map))
+  (define-key map (kbd "C-c C-b") #'agitate-diff-refine-cycle) ; replace `diff-refine-hunk'
+  (define-key map (kbd "C-c C-n") #'agitate-diff-narrow-dwim))
+(let ((map log-view-mode-map))
+  (define-key map (kbd "w") #'agitate-log-view-kill-revision)
+  (define-key map (kbd "W") #'agitate-log-view-kill-revision-expanded))
+(let ((map vc-git-log-view-mode-map))
+  (define-key map (kbd "c") #'agitate-vc-git-format-patch-single))
+(let ((map log-edit-mode-map))
+  (define-key map (kbd "C-c C-i C-n") #'agitate-log-edit-insert-file-name)
+  ;; See user options `agitate-log-edit-emoji-collection' and
+  ;; `agitate-log-edit-conventional-commits-collection'.
+  (define-key map (kbd "C-c C-i C-e") #'agitate-log-edit-emoji-commit)
+  (define-key map (kbd "C-c C-i C-c") #'agitate-log-edit-conventional-commit))
+#+end_src
 
 * COPYING
 :PROPERTIES:
