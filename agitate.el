@@ -241,17 +241,15 @@ to the text at point."
   "Prompt for Git commit and return it as a string.
 With optional FILE, limit the commits to those pertinent to it.
 With optional LONG do not abbreviate commit hashes."
-  (let ((default-directory (vc-root-dir))
-        (format (if long "--pretty=oneline" "--oneline")))
-    (if file
-        (completing-read
-         (format "Select revision of `%s': " file)
-         (process-lines vc-git-program "log" format file)
-         nil t)
-      (completing-read
-       "Select revision: "
-       (process-lines vc-git-program "log" format "--")
-       nil t))))
+  (let* ((prompt (if file
+                     (format "Select revision of `%s': " file)
+                   "Select revision: "))
+         (commit-format (if long "--pretty=oneline" "--oneline"))
+         (default-directory (vc-root-dir)))
+    (completing-read
+     prompt
+     (process-lines vc-git-program "log" commit-format (or file "--"))
+     nil t)))
 
 (defvar agitate-vc-git-show-buffer "*agitate-vc-git-show*"
   "Buffer for showing a git commit.")
