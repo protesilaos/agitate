@@ -70,6 +70,18 @@ will render those as their corresponding graphical emoji."
   :type '(repeat string)
   :group 'agitate)
 
+(defun agitate--completion-table-no-sort (candidates &optional category annotation)
+  "Make completion table for CANDIDATES with sorting disabled.
+CATEGORY is the completion category.
+ANNOTATION is an annotation function."
+  (lambda (str pred action)
+    (if (eq action 'metadata)
+        `(metadata (display-sort-function . identity)
+                   (cycle-sort-function . identity)
+                   (annotation-function . ,annotation)
+                   (category . ,category))
+      (complete-with-action action candidates str pred))))
+
 ;;;; Commands for diff-mode
 
 (defvar-local agitate--refine-diff-state nil
@@ -278,11 +290,17 @@ With optional LONG do not abbreviate commit hashes."
          (default-directory (vc-root-dir)))
     (completing-read
      prompt
-     (process-lines
-      vc-git-program "log"
-      (format "-n %d" vc-log-show-limit)
-      (if long "--pretty=oneline" "--oneline")
-      (or file "--"))
+     ;; TODO 2022-09-29: Define a completion category that can work
+     ;; with `consult', `embark', `marginalia', and friends?
+     ;;
+     ;; TODO 2022-09-29: Define an annotation function?  Though we can
+     ;; just tweak the git arguments.
+     (agitate--completion-table-no-sort
+      (process-lines
+       vc-git-program "log"
+       (format "-n %d" vc-log-show-limit)
+       (if long "--pretty=oneline" "--oneline")
+       (or file "--")))
      nil t)))
 
 (defvar agitate-vc-git-show-buffer "*agitate-vc-git-show*"
