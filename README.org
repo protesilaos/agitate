@@ -154,10 +154,10 @@ commits" are documented here: <https://www.conventionalcommits.org/en/v1.0.0/>.
 :END:
 
 #+findex: agitate-vc-git-show
-+ ~agitate-vc-git-show~ :: PROTOTYPE.  Prompt for commit and run
-  =git-show(1)= on it. With optional =CURRENT-FILE= as prefix
-  argument, limit the commits to those pertaining to the current file.
-  The number of completion candidates is limited to the value of
++ ~agitate-vc-git-show~ :: Prompt for commit and run =git-show(1)= on
+  it. With optional =CURRENT-FILE= as prefix argument, limit the
+  commits to those pertaining to the current file.  The number of
+  completion candidates is limited to the value of
   ~vc-log-show-limit~.
 
 #+findex: agitate-vc-git-format-patch-single
