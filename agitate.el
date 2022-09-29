@@ -243,6 +243,15 @@ to the text at point."
     (kill-new (format "%s" revision))
     (message "Copied: %s" revision)))
 
+(defun agitate--log-view-on-revision-p (&optional pos)
+  "Return non-nil if optional POS is on a revision line.
+When POS is nil, use `point'."
+  (when-let ((point (or pos (point)))
+             ((not (log-view-inside-comment-p point))))
+    (save-excursion
+      (goto-char (line-beginning-position))
+      (looking-at log-view-message-re))))
+
 (defun agitate--log-view-revision-expanded-bounds (&optional back)
   "Return position of expanded log-view message.
 With optional BACK, find the beginning, else the end."
@@ -261,18 +270,24 @@ With optional BACK, find the beginning, else the end."
 
 ;;;###autoload
 (defun agitate-log-view-kill-revision-expanded ()
-  "PROTOTYPE Append to `kill-ring' expanded message of log-view revision at point."
+  "Append to `kill-ring' expanded message of log-view revision at point."
   (interactive nil log-view-mode)
   (let ((pos (point)))
-    ;; TODO 2022-09-28: Also test when we are on the line of the
-    ;; revision, with the expanded entry right below.
-    (when (log-view-inside-comment-p pos)
+    ;; TODO 2022-09-29: Rewrite this to avoid repetition...
+    (cond
+     ((log-view-inside-comment-p pos)
       (kill-new
        (buffer-substring-no-properties
         (agitate--log-view-revision-expanded-bounds :back)
-        (agitate--log-view-revision-expanded-bounds)))
-      (message "Copied message of `%s' revision"
-               (cadr (log-view-current-entry pos t))))))
+        (agitate--log-view-revision-expanded-bounds))))
+     ((agitate--log-view-on-revision-p pos)
+      (forward-line 1)
+      (kill-new
+       (buffer-substring-no-properties
+        (agitate--log-view-revision-expanded-bounds :back)
+        (agitate--log-view-revision-expanded-bounds)))))
+    (message "Copied message of `%s' revision"
+             (cadr (log-view-current-entry pos t)))))
 
 ;;;; Commands for vc-git (Git backend for the Version Control framework)
 

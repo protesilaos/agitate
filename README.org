@@ -145,8 +145,8 @@ commits" are documented here: <https://www.conventionalcommits.org/en/v1.0.0/>.
   point.
 
 #+findex: agitate-log-view-kill-revision-expanded
-+ ~agitate-log-view-kill-revision-expanded~ :: PROTOTYPE.  Append to
-  ~kill-ring~ expanded message of log-view revision at point.
++ ~agitate-log-view-kill-revision-expanded~ :: Append to ~kill-ring~
+  expanded message of log-view revision at point.
 
 ** Extras for vc-git
 :PROPERTIES:
