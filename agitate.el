@@ -303,9 +303,6 @@ With optional LONG do not abbreviate commit hashes."
        (or file "--")))
      nil t)))
 
-(defvar agitate-vc-git-show-buffer "*agitate-vc-git-show*"
-  "Buffer for showing a git commit.")
-
 ;;;###autoload
 (defun agitate-vc-git-show (&optional current-file)
   "PROTOTYPE.
