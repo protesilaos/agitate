@@ -263,11 +263,6 @@ With optional BACK, find the beginning, else the end."
       (forward-line (nth 2 motion))
       (point))))
 
-  ;; TODO 2022-09-28: Maybe have a do-what-I-mean behaviour to expand
-  ;; the entry if necessary?  Or maybe expand it to get the message
-  ;; and then contract it again?  Keeping it simple seems appropriate,
-  ;; but we will see how this evolves.
-
 ;;;###autoload
 (defun agitate-log-view-kill-revision-expanded ()
   "Append to `kill-ring' expanded message of log-view revision at point."
