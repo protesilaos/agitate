@@ -263,26 +263,28 @@ With optional BACK, find the beginning, else the end."
       (forward-line (nth 2 motion))
       (point))))
 
+(defun agitate--log-view-kill-message (pos)
+  "Do what `agitate-log-view-kill-revision-expanded' describes for POS."
+  (kill-new
+   (buffer-substring-no-properties
+    (agitate--log-view-revision-expanded-bounds :back)
+    (agitate--log-view-revision-expanded-bounds)))
+  (message "Copied message of `%s' revision"
+           (save-excursion (cadr (log-view-current-entry pos t)))))
+
 ;;;###autoload
 (defun agitate-log-view-kill-revision-expanded ()
   "Append to `kill-ring' expanded message of log-view revision at point."
   (interactive nil log-view-mode)
-  (let ((pos (point)))
-    ;; TODO 2022-09-29: Rewrite this to avoid repetition...
-    (cond
-     ((log-view-inside-comment-p pos)
-      (kill-new
-       (buffer-substring-no-properties
-        (agitate--log-view-revision-expanded-bounds :back)
-        (agitate--log-view-revision-expanded-bounds))))
-     ((agitate--log-view-on-revision-p pos)
+  (let ((pos (point))
+        opos)
+    (when (agitate--log-view-on-revision-p pos)
+      (setq opos (point))
       (forward-line 1)
-      (kill-new
-       (buffer-substring-no-properties
-        (agitate--log-view-revision-expanded-bounds :back)
-        (agitate--log-view-revision-expanded-bounds)))))
-    (message "Copied message of `%s' revision"
-             (cadr (log-view-current-entry pos t)))))
+      (setq pos (point)))
+    (if (log-view-inside-comment-p pos)
+        (agitate--log-view-kill-message pos)
+      (goto-char opos))))
 
 ;;;; Commands for vc-git (Git backend for the Version Control framework)
 
