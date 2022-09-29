@@ -328,7 +328,8 @@ The number of completion candidates is limited to the value of
     ;; TODO 2022-09-27: What else do we need to set up in such a
     ;; buffer?
     (with-current-buffer (pop-to-buffer buf)
-      (diff-mode))))
+      (diff-mode)
+      (goto-char (point-min)))))
 
 (defun agitate--vc-git-format-patch-single-commit ()
   "Help `agitate-vc-git-format-patch-single' with its COMMIT."
