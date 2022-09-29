@@ -106,6 +106,7 @@ fontification."
        (setq agitate--refine-diff-state 'all)
        (message "Diff refine ALL"))
       ('all
+       (setq-local diff-refine nil)
        (revert-buffer)
        (goto-char point)
        (recenter)
