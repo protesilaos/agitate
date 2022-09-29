@@ -379,6 +379,16 @@ The number of completion candidates is limited to the value of
            (list "format-patch" "-1" commit "--"))))
 
 ;;;###autoload
+(defun agitate-vc-git-format-patch-n-from-head (number)
+  "Format patches covering NUMBER of commits from current HEAD.
+This is the eqvuivalent of: git format-patch -NUMBER."
+  (interactive (list (read-number "git format-patch -NUMBER: ")))
+  (if (natnump number)
+      (apply 'vc-git-command nil 0 nil
+             (list "format-patch" (format "-%d" number)))
+    (user-error "NUMBER must satisfy `natnump'; `%s' does not" number)))
+
+;;;###autoload
 (defun agitate-vc-git-grep (regexp)
   "Run `git-grep(1)' for REGEXP in `vc-root-dir'.
 This is a simple wrapper around `vc-git-grep' to streamline the

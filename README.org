@@ -179,6 +179,11 @@ commits" are documented here: <https://www.conventionalcommits.org/en/v1.0.0/>.
   ;; ~/Desktop or some dedicated "patches" directory.
   #+end_src
 
+#+findex: agitate-vc-git-format-patch-n-from-head
++ ~agitate-vc-git-format-patch-n-from-head~ :: Format patches covering
+  =NUMBER= of commits from current HEAD.  This is the eqvuivalent of:
+  =git format-patch -NUMBER=.
+
 #+findex: agitate-vc-git-grep
 + ~agitate-vc-git-grep~ :: Run =git-grep(1)= for =REGEXP= in
   ~vc-root-dir~.  This is a simple wrapper around ~vc-git-grep~ to
