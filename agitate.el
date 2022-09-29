@@ -318,9 +318,7 @@ With optional LONG do not abbreviate commit hashes."
 
 ;;;###autoload
 (defun agitate-vc-git-show (&optional current-file)
-  "PROTOTYPE.
-
-Prompt for commit and run `git-show(1)' on it.
+  "Prompt for commit and run `git-show(1)' on it.
 With optional CURRENT-FILE as prefix argument, limit the commits
 to those pertaining to the current file.
 
