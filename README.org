@@ -188,10 +188,13 @@ commits" are documented here: <https://www.conventionalcommits.org/en/v1.0.0/>.
 
 #+findex: agitate-vc-git-kill-commit-message
 + ~agitate-vc-git-kill-commit-message~ :: Append to ~kill-ring~
-  message of commit with HASH identifier. q When called interactively,
-  prompt for =HASH= using minibuffer completion.  When point is in a
-  log-view buffer, make the revision at point the default value of the
-  prompt.  This is useful to quote a past commit message.
+  message of commit with =HASH= identifier.  When called
+  interactively, prompt for =HASH= using minibuffer completion.  When
+  point is in a log-view buffer, make the revision at point the
+  default value of the prompt (though also see the command
+  ~agitate-log-view-kill-revision-expanded~).  The number of
+  completion candidates is limited to the value of
+  ~vc-log-show-limit~.
 
 #+findex: agitate-vc-git-push-prompt-for-remote
 + ~agitate-vc-git-push-prompt-for-remote~ :: Behave like ~vc-git-push~

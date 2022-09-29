@@ -407,7 +407,11 @@ arguments."
          (default-directory (vc-root-dir)))
     (completing-read
      prompt
-     (process-lines vc-git-program "log" "--oneline" "--")
+     (agitate--completion-table-no-sort
+      (process-lines
+       vc-git-program "log"
+       (format "-n %d" vc-log-show-limit)
+       "--oneline" "--"))
      nil t nil
      'agitate--vc-git-kill-commit-message-history default-value)))
 
@@ -418,9 +422,11 @@ When called interactively, prompt for HASH using minibuffer
 completion.
 
 When point is in a log-view buffer, make the revision at point
-the default value of the prompt.
+the default value of the prompt (though also see the command
+`agitate-log-view-kill-revision-expanded').
 
-This is useful to quote a past commit message."
+The number of completion candidates is limited to the value of
+`vc-log-show-limit'."
   (interactive
    (list
     (agitate--vc-git-get-hash-from-string
