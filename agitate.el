@@ -275,11 +275,14 @@ With optional LONG do not abbreviate commit hashes."
   (let* ((prompt (if file
                      (format "Select revision of `%s': " file)
                    "Select revision: "))
-         (commit-format (if long "--pretty=oneline" "--oneline"))
          (default-directory (vc-root-dir)))
     (completing-read
      prompt
-     (process-lines vc-git-program "log" commit-format (or file "--"))
+     (process-lines
+      vc-git-program "log"
+      (format "-n %d" vc-log-show-limit)
+      (if long "--pretty=oneline" "--oneline")
+      (or file "--"))
      nil t)))
 
 (defvar agitate-vc-git-show-buffer "*agitate-vc-git-show*"
@@ -291,7 +294,10 @@ With optional LONG do not abbreviate commit hashes."
 
 Prompt for commit and run `git-show(1)' on it.
 With optional CURRENT-FILE as prefix argument, limit the commits
-to those pertaining to the current file."
+to those pertaining to the current file.
+
+The number of completion candidates is limited to the value of
+`vc-log-show-limit'."
   (declare (interactive-only t))
   (interactive "P")
   (when-let* ((file (caadr (vc-deduce-fileset))) ; FIXME 2022-09-27: Better way to get current file?
@@ -324,7 +330,10 @@ If there is no such commit at point, prompt for COMMIT using
 minibuffer completion.
 
 Output the patch file to the return value of the function
-`vc-root-dir'."
+`vc-root-dir'.
+
+The number of completion candidates is limited to the value of
+`vc-log-show-limit'."
   (interactive (list (agitate--vc-git-format-patch-single-commit)))
   ;; TODO 2022-09-27: Handle the output directory better.  Though I am
   ;; not sure how people work with those.  I normally use the root of

@@ -157,15 +157,19 @@ commits" are documented here: <https://www.conventionalcommits.org/en/v1.0.0/>.
 + ~agitate-vc-git-show~ :: PROTOTYPE.  Prompt for commit and run
   =git-show(1)= on it. With optional =CURRENT-FILE= as prefix
   argument, limit the commits to those pertaining to the current file.
+  The number of completion candidates is limited to the value of
+  ~vc-log-show-limit~.
 
 #+findex: agitate-vc-git-format-patch-single
-+ ~agitate-vc-git-format-patch-single~ :: Format patch for a
-  single =COMMIT=.  If in a log-view buffer, the =COMMIT= is the one
-  at point.  For the details of how that is determined, read the doc
++ ~agitate-vc-git-format-patch-single~ :: Format patch for a single
+  =COMMIT=.  If in a log-view buffer, the =COMMIT= is the one at
+  point.  For the details of how that is determined, read the doc
   string of ~agitate-log-view-kill-revision~.  If there is no such
   commit at point, prompt for =COMMIT= using minibuffer completion.
   Output the patch file to the return value of the function
-  ~vc-root-dir~.  Relevant except from the source code:
+  ~vc-root-dir~.  The number of completion candidates is limited to
+  the value of ~vc-log-show-limit~.  Relevant except from the source
+  code:
 
   #+begin_src emacs-lisp
   ;; TODO 2022-09-27: Handle the output directory better.  Though I am
