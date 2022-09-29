@@ -271,7 +271,7 @@ Everything is in place to set up the package.
 
 ;; Agitate is still a WORK-IN-PROGRESS.
 
-(require 'agitate "/home/prot/Git/Projects/agitate/agitate.el")
+(require 'agitate)
 
 (add-hook 'diff-mode-hook #'agitate-diff-enable-outline-minor-mode)
 
