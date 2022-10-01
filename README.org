@@ -63,28 +63,28 @@ The following sections document the extras per their scope.
 :END:
 
 #+findex: agitate-diff-refine-cycle
-+ ~agitate-diff-refine-cycle~ :: Cycle current, all, or no refined
-  (word-wise) diff highlighting.  Upon first invocation, refine the
-  diff hunk at point or, when none exists, the one closest to it.  On
-  second call, operate on the entire buffer.  And on the third time,
-  remove all word-wise fontification.
++ Function ~agitate-diff-refine-cycle~ :: Cycle current, all, or no
+  refined (word-wise) diff highlighting.  Upon first invocation,
+  refine the diff hunk at point or, when none exists, the one closest
+  to it.  On second call, operate on the entire buffer.  And on the
+  third time, remove all word-wise fontification.
 
 #+findex: agitate-diff-buffer-or-file
-+ ~agitate-diff-buffer-or-file~ :: Produce a diff against the file or
-  latest revision.  If the buffer is modified, produce a diff that
-  compares its state to that of the corresponding file.  In simple
-  terms, show the latest unsaved changes. If the buffer is not
++ Function ~agitate-diff-buffer-or-file~ :: Produce a diff against the
+  file or latest revision.  If the buffer is modified, produce a diff
+  that compares its state to that of the corresponding file.  In
+  simple terms, show the latest unsaved changes. If the buffer is not
   modified, produce a diff of the file relative to its latest
   revision.
 
 #+findex: agitate-diff-narrow-dwim
-+ ~agitate-diff-narrow-dwim~ :: Narrow to diff hunk or file and widen
-  when already narrowed.  By default narrow to the focused diff hunk.
-  With optional =NARROW-FILE= as a prefix argument, operate on the
-  current file instead.
++ Function ~agitate-diff-narrow-dwim~ :: Narrow to diff hunk or file
+  and widen when already narrowed.  By default narrow to the focused
+  diff hunk.  With optional =NARROW-FILE= as a prefix argument,
+  operate on the current file instead.
 
 #+findex: agitate-diff-enable-outline-minor-mode
-+ ~agitate-diff-enable-outline-minor-mode~ :: Enable
++ Function ~agitate-diff-enable-outline-minor-mode~ :: Enable
   ~outline-minor-mode~ with appropriate tweaks for diffs.  This
   basically gives you folding of diff hunks by means of the
   ~outline-cycle~ command. Add this function to the ~diff-mode-hook~.
@@ -95,33 +95,33 @@ The following sections document the extras per their scope.
 :END:
 
 #+findex: agitate-log-edit-insert-file-name
-+ ~agitate-log-edit-insert-file-name~ :: Insert at point file name
-  sans directory from ~log-edit-files~.  If multiple files are
++ Function ~agitate-log-edit-insert-file-name~ :: Insert at point file
+  name sans directory from ~log-edit-files~.  If multiple files are
   involved, prompt with completion for one among them. With optional
   prefix argument =WITH-FILE-EXTENSION=, include the file extension.
   Else omit it.
 
 #+findex: agitate-log-edit-emoji-commit
-+ ~agitate-log-edit-emoji-commit~ :: Insert =EMOJI-COMMIT= message at
-  point.  When called interactively, prompt for =EMOJI-COMMIT= among
-  the ~agitate-log-edit-emoji-collection~.
++ Function ~agitate-log-edit-emoji-commit~ :: Insert =EMOJI-COMMIT=
+  message at point.  When called interactively, prompt for
+  =EMOJI-COMMIT= among the ~agitate-log-edit-emoji-collection~.
 
 #+vindex: agitate-log-edit-emoji-collection
-+ ~agitate-log-edit-emoji-collection~ :: User option whose value is a
-  list of strings that represent completion candidates for
++ Variable ~agitate-log-edit-emoji-collection~ :: User option whose
+  value is a list of strings that represent completion candidates for
   ~agitate-log-edit-emoji-commit~.  It is recommended to use the
   =:EMOJI:= notation, as it works even in terminals that cannot output
   Unicode.  Relevant applications will render those as their
   corresponding graphical emoji.
 
 #+findex: agitate-log-edit-conventional-commit
-+ ~agitate-log-edit-conventional-commit~ :: Insert conventional commit
-  message at point.  Prompt for entry among those declared in
-  ~agitate-log-edit-conventional-commits-collection~.
++ Function ~agitate-log-edit-conventional-commit~ :: Insert
+  conventional commit message at point.  Prompt for entry among those
+  declared in ~agitate-log-edit-conventional-commits-collection~.
 
 #+vindex: agitate-log-edit-conventional-commits-collection
-+ ~agitate-log-edit-conventional-commits-collection~ :: User options
-  whose value is a list of strings that represent completion
++ Variable ~agitate-log-edit-conventional-commits-collection~ :: User
+  options whose value is a list of strings that represent completion
   candidates for ~agitate-log-edit-conventional-commit~.
 
 The emoji commits are inspired by <https://gitmoji.dev/>, though I
@@ -134,10 +134,10 @@ commits" are documented here: <https://www.conventionalcommits.org/en/v1.0.0/>.
 :END:
 
 #+findex: agitate-log-view-kill-revision
-+ ~agitate-log-view-kill-revision~ :: Append to ~kill-ring~ log-view
-  revision at or around point.  When the log-view is in the short
-  format (one compact line per revision), the revision is the one on
-  the current line.  If the revision is expanded with
++ Function ~agitate-log-view-kill-revision~ :: Append to ~kill-ring~
+  log-view revision at or around point.  When the log-view is in the
+  short format (one compact line per revision), the revision is the
+  one on the current line.  If the revision is expanded with
   ~log-view-expanded-log-entry-function~ and point is somewhere inside
   the expanded text, the revision is still the same. When the log-view
   is in the long format (detailed view where each revision spans
@@ -145,9 +145,9 @@ commits" are documented here: <https://www.conventionalcommits.org/en/v1.0.0/>.
   point.
 
 #+findex: agitate-log-view-kill-revision-expanded
-+ ~agitate-log-view-kill-revision-expanded~ :: Append to ~kill-ring~
-  expanded message of log-view revision at point (developers can also
-  check the private functions it uses).
++ Function ~agitate-log-view-kill-revision-expanded~ :: Append to
+  ~kill-ring~ expanded message of log-view revision at point
+  (developers can also check the private functions it uses).
 
 ** Extras for vc-git
 :PROPERTIES:
@@ -155,20 +155,21 @@ commits" are documented here: <https://www.conventionalcommits.org/en/v1.0.0/>.
 :END:
 
 #+findex: agitate-vc-git-show
-+ ~agitate-vc-git-show~ :: Prompt for commit and run =git-show(1)= on
-  it. With optional =CURRENT-FILE= as prefix argument, limit the
-  commits to those pertaining to the current file.  The number of
-  completion candidates is limited to the value of
++ Function ~agitate-vc-git-show~ :: Prompt for commit and run
+  =git-show(1)= on it. With optional =CURRENT-FILE= as prefix
+  argument, limit the commits to those pertaining to the current file.
+  The number of completion candidates is limited to the value of
   ~vc-log-show-limit~.
 
 #+findex: agitate-vc-git-show-tag
-+ ~agitate-vc-git-show-tag~ :: Run =git-show(1)= on Git =TAG=.  When
-  called interactively, prompt for TAG using minibuffer completion.
++ Function ~agitate-vc-git-show-tag~ :: Run =git-show(1)= on Git
+  =TAG=.  When called interactively, prompt for TAG using minibuffer
+  completion.
 
 #+findex: agitate-vc-git-format-patch-single
-+ ~agitate-vc-git-format-patch-single~ :: Format patch for a single
-  =COMMIT=.  If in a log-view buffer, the =COMMIT= is the one at
-  point.  For the details of how that is determined, read the doc
++ Function ~agitate-vc-git-format-patch-single~ :: Format patch for a
+  single =COMMIT=.  If in a log-view buffer, the =COMMIT= is the one
+  at point.  For the details of how that is determined, read the doc
   string of ~agitate-log-view-kill-revision~.  If there is no such
   commit at point, prompt for =COMMIT= using minibuffer completion.
   Output the patch file to the return value of the function
@@ -184,20 +185,20 @@ commits" are documented here: <https://www.conventionalcommits.org/en/v1.0.0/>.
   #+end_src
 
 #+findex: agitate-vc-git-format-patch-n-from-head
-+ ~agitate-vc-git-format-patch-n-from-head~ :: Format patches covering
-  =NUMBER= of commits from current HEAD.  This is the eqvuivalent of:
-  =git format-patch -NUMBER=.
++ Function ~agitate-vc-git-format-patch-n-from-head~ :: Format patches
+  covering =NUMBER= of commits from current HEAD.  This is the
+  eqvuivalent of: =git format-patch -NUMBER=.
 
 #+findex: agitate-vc-git-grep
-+ ~agitate-vc-git-grep~ :: Run =git-grep(1)= for =REGEXP= in
++ Function ~agitate-vc-git-grep~ :: Run =git-grep(1)= for =REGEXP= in
   ~vc-root-dir~.  This is a simple wrapper around ~vc-git-grep~ to
   streamline the basic task of searching for a regexp in the current
   Git repository.  Use the original ~vc-git-grep~ for its other
   arguments.
 
 #+findex: agitate-vc-git-kill-commit-message
-+ ~agitate-vc-git-kill-commit-message~ :: Append to ~kill-ring~
-  message of commit with =HASH= identifier.  When called
++ Function ~agitate-vc-git-kill-commit-message~ :: Append to
+  ~kill-ring~ message of commit with =HASH= identifier.  When called
   interactively, prompt for =HASH= using minibuffer completion.  When
   point is in a log-view buffer, make the revision at point the
   default value of the prompt (though also see the command
@@ -206,11 +207,11 @@ commits" are documented here: <https://www.conventionalcommits.org/en/v1.0.0/>.
   ~vc-log-show-limit~.
 
 #+findex: agitate-vc-git-push-prompt-for-remote
-+ ~agitate-vc-git-push-prompt-for-remote~ :: Behave like ~vc-git-push~
-  but prompt for a remote, if needed.  The meaning of =PROMPT= is the
-  same as that of ~vc-git-push~.  In such a case, do not prompt for a
-  remote. To use this function add it as an override advice to
-  ~vc-git-push~.  Relevant quote from the source code:
++ Function ~agitate-vc-git-push-prompt-for-remote~ :: Behave like
+  ~vc-git-push~ but prompt for a remote, if needed.  The meaning of
+  =PROMPT= is the same as that of ~vc-git-push~.  In such a case, do
+  not prompt for a remote. To use this function add it as an override
+  advice to ~vc-git-push~.  Relevant quote from the source code:
 
   #+begin_src emacs-lisp
   ;; TODO 2022-09-27: We can have something similar which prompts for a
