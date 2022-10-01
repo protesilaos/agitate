@@ -128,6 +128,24 @@ The emoji commits are inspired by <https://gitmoji.dev/>, though I
 think most of those are superfluous.  Less is more.  The "conventional
 commits" are documented here: <https://www.conventionalcommits.org/en/v1.0.0/>.
 
+*** Informative log-edit window configuration mode
+:PROPERTIES:
+:CUSTOM_ID: h:7f50cff1-4abd-4155-a57b-07f283db7630
+:END:
+
+#+findex: agitate-log-edit-informative-mode
+#+vindex: agitate-log-edit-informative-mode
+The ~agitate-log-edit-informative-mode~ is the PROTOTYPE of a global
+minor mode that rearranges the window configuration (layout) while
+bringing up a log-edit buffer (such as what happens when =C-x v v=
+(~vc-next-action~) is about to commit the changes).  It shows the
+log-edit buffer on the left and the corresponding diff on the right.
+
+#+vindex: agitate-log-edit-informative-show-files
+When the user option ~agitate-log-edit-informative-show-files~ is
+non-nil (the default), the list of files pertinent to the current
+action is shown below the log-edit buffer.
+
 ** Extras for log-view
 :PROPERTIES:
 :CUSTOM_ID: h:2a48ff74-6a8f-4fc6-9e14-c9e412857b2d

@@ -223,6 +223,59 @@ Prompt for entry among those declared in
      'agitate--log-edit-conventional-commits-history)
     ": ")))
 
+;;;;; log-edit "informative" window configuration mode
+
+;; TODO 2022-10-01: defcustom to show vc-print-root-log?  Display it
+;; below log edit buf?
+
+(defcustom agitate-log-edit-informative-show-files t
+  "Show applicable files with `agitate-log-edit-informative-mode'."
+  :type 'boolean
+  :group 'agitate)
+
+(defvar agitate--previous-window-configuration nil
+  "Store the last window configuration.")
+
+;; FIXME 2022-10-01: What happens if the user changes the window
+;; layout after they entre this view but before finalising the
+;; log-edit?  That would restore the last window configuration, but is
+;; that the right thing?  Should we dedicate buffers to their windows
+;; and make it unbreakable?  Feels too much...  I think keeping it
+;; simple is better.
+;;;###autoload
+(define-minor-mode agitate-log-edit-informative-mode
+  "PROTOTYPE Apply a specific window configuation when entering log-view mode.
+Restore the last window configuration when finalising log-view."
+  :init-value nil
+  :global t
+  (if agitate-log-edit-informative-mode
+      (progn
+        (add-hook 'log-edit-hook #'agitate--log-edit-informative-setup)
+        (add-hook 'log-edit-mode-hook #'agitate--log-edit-informative-handle-kill-buffer))
+    (remove-hook 'log-edit-hook #'agitate--log-edit-informative-setup)
+    (remove-hook 'log-edit-mode-hook #'agitate--log-edit-informative-handle-kill-buffer)))
+
+(defun agitate--log-edit-informative-setup ()
+  "Set up informative `log-edit' window configuration."
+  (setq agitate--previous-window-configuration (current-window-configuration))
+  (delete-other-windows)
+  (log-edit-show-diff)
+  (other-window -1)
+  (add-hook 'log-edit-done-hook #'agitate--log-edit-informative-restore nil t)
+  (add-hook 'log-edit-hook #'agitate--log-edit-informative-restore nil t)
+  (if agitate-log-edit-informative-show-files
+      (log-edit-show-files)
+    (log-edit-hide-buf log-edit-files-buf)))
+
+(defun agitate--log-edit-informative-restore ()
+  "Restore `agitate--previous-window-configuration'."
+  (set-window-configuration agitate--previous-window-configuration))
+
+(defun agitate--log-edit-informative-handle-kill-buffer ()
+  "Restore `agitate--previous-window-configuration' if killed."
+  (when (derived-mode-p 'log-edit-mode)
+    (add-hook 'kill-buffer-hook #'agitate--log-edit-informative-restore 0 t)))
+
 ;;;; Commands for log-view (listings of commits)
 
 ;;;###autoload
