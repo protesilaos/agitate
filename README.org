@@ -146,6 +146,10 @@ When the user option ~agitate-log-edit-informative-show-files~ is
 non-nil (the default), the list of files pertinent to the current
 action is shown below the log-edit buffer.
 
+#+vindex: agitate-log-edit-informative-show-root-log
+When the user option ~agitate-log-edit-informative-show-root-log~ is
+non-nil, the root log of the revisions is shown.
+
 ** Extras for log-view
 :PROPERTIES:
 :CUSTOM_ID: h:2a48ff74-6a8f-4fc6-9e14-c9e412857b2d
@@ -308,6 +312,10 @@ Everything is in place to set up the package.
 (add-hook 'diff-mode-hook #'agitate-diff-enable-outline-minor-mode)
 
 (advice-add #'vc-git-push :override #'agitate-vc-git-push-prompt-for-remote)
+
+;; Also check: `agitate-log-edit-informative-show-files',
+;; `agitate-log-edit-informative-show-root-log'.
+(agitate-log-edit-informative-mode 1)
 
 (let ((map global-map))
   (define-key map (kbd "C-x v =") #'agitate-diff-buffer-or-file) ; replace `vc-diff'
