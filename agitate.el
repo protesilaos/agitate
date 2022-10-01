@@ -346,6 +346,38 @@ The number of completion candidates is limited to the value of
                         (goto-char (point-min)))))
         (goto-char (point-min))))))
 
+(defun agitate--vc-git-tag-prompt ()
+  "Prompt for Git tag."
+  (when-let* ((default-directory (vc-root-dir)))
+    (completing-read
+     "Select tag: "
+     (agitate--completion-table-no-sort
+      (process-lines
+       vc-git-program "tag"
+       "--"))
+     nil t)))
+
+;;;###autoload
+(defun agitate-vc-git-show-tag (tag)
+  "Run `git-show(1)' on Git TAG.
+When called interactively, prompt for TAG using minibuffer
+completion."
+  (interactive (list (agitate--vc-git-tag-prompt)))
+  (let* ((buf "*agitate-vc-git-show*")
+         (args (list "show" tag)))
+    (apply 'vc-git-command (get-buffer-create buf) nil nil args)
+    ;; TODO 2022-09-27: What else do we need to set up in such a
+    ;; buffer?
+    (with-current-buffer (pop-to-buffer buf)
+      (diff-mode)
+      (setq-local revert-buffer-function
+                  (lambda (_ignore-auto _noconfirm)
+                    (let ((inhibit-read-only t))
+                      (erase-buffer)
+                      (apply 'vc-git-command (get-buffer buf) nil nil args)
+                      (goto-char (point-min)))))
+      (goto-char (point-min)))))
+
 (defun agitate--vc-git-format-patch-single-commit ()
   "Help `agitate-vc-git-format-patch-single' with its COMMIT."
   (if-let ((default-value (cadr (log-view-current-entry (point) t))))
