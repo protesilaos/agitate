@@ -6,7 +6,7 @@
 ;; Maintainer: Agitate Development <~protesilaos/agitate@lists.sr.ht>
 ;; URL: https://git.sr.ht/~protesilaos/agitate
 ;; Mailing-List: https://lists.sr.ht/~protesilaos/agitate
-;; Version: 0.0.0
+;; Version: 0
 ;; Package-Requires: ((emacs "28.1"))
 ;; Keywords: convenience, version control, git
 
