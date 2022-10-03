@@ -551,6 +551,10 @@ arguments."
      nil t nil
      'agitate--vc-git-kill-commit-message-history default-value)))
 
+;; TODO 2022-10-03: Either add a command that copies just the hash
+;; from a completion prompt, or make this accept a prefix argument.  I
+;; prefer a separate command.
+
 ;;;###autoload
 (defun agitate-vc-git-kill-commit-message (hash)
   "Append to `kill-ring' message of commit with HASH identifier.
