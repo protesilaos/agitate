@@ -80,6 +80,13 @@ will render those as their corresponding graphical emoji."
   :type 'boolean
   :group 'agitate)
 
+(defcustom agitate-log-limit 100
+  "Limit logs to this natural number.
+This is like `vc-log-show-limit', but with a much more
+conservative default value."
+  :type 'natnum
+  :group 'agitate)
+
 (defun agitate--completion-table-no-sort (candidates &optional category annotation)
   "Make completion table for CANDIDATES with sorting disabled.
 CATEGORY is the completion category.
@@ -270,7 +277,10 @@ Restore the last window configuration when finalising log-view."
 (defun agitate-log-edit-show-root-log (&optional current-files)
   "PROTOTYPE Like `vc-print-root-log' for `log-edit' buffers.
 When optional CURRENT-FILES is non-nil, limit the revision log to
-the `log-edit-files'."
+the `log-edit-files'.
+
+The number of revisions in the log is controlled by the user
+option `agitate-log-limit'."
   (when-let* ((files (log-edit-files))
               ;; FIXME 2022-10-01: What happens with backends that do
               ;; not support short logs?  Do we need to handle
@@ -278,7 +288,7 @@ the `log-edit-files'."
               (vc-log-short-style '(file)))
     (vc-print-log-internal
      (vc-responsible-backend default-directory)
-     (when current-files files) nil nil vc-log-show-limit)))
+     (when current-files files) nil nil agitate-log-limit)))
 
 (defun agitate--log-edit-informative-setup ()
   "Set up informative `log-edit' window configuration."
@@ -377,7 +387,10 @@ With optional BACK, find the beginning, else the end."
 (defun agitate--vc-git-commit-prompt (&optional file long)
   "Prompt for Git commit and return it as a string.
 With optional FILE, limit the commits to those pertinent to it.
-With optional LONG do not abbreviate commit hashes."
+With optional LONG do not abbreviate commit hashes.
+
+The number of revisions in the log is controlled by the user
+option `agitate-log-limit'."
   (let* ((prompt (if file
                      (format "Select revision of `%s': " file)
                    "Select revision: "))
@@ -392,7 +405,7 @@ With optional LONG do not abbreviate commit hashes."
      (agitate--completion-table-no-sort
       (process-lines
        vc-git-program "log"
-       (format "-n %d" vc-log-show-limit)
+       (format "-n %d" agitate-log-limit)
        (if long "--pretty=oneline" "--oneline")
        (or file "--")))
      nil t)))
@@ -403,8 +416,8 @@ With optional LONG do not abbreviate commit hashes."
 With optional CURRENT-FILE as prefix argument, limit the commits
 to those pertaining to the current file.
 
-The number of completion candidates is limited to the value of
-`vc-log-show-limit'."
+The number of revisions in the log is controlled by the user
+option `agitate-log-limit'."
   (declare (interactive-only t))
   (interactive "P")
   (when-let ((file (caadr (vc-deduce-fileset))))
@@ -479,8 +492,8 @@ minibuffer completion.
 Output the patch file to the return value of the function
 `vc-root-dir'.
 
-The number of completion candidates is limited to the value of
-`vc-log-show-limit'."
+The number of revisions in the log is controlled by the user
+option `agitate-log-limit'."
   (interactive (list (agitate--vc-git-format-patch-single-commit)))
   ;; TODO 2022-09-27: Handle the output directory better.  Though I am
   ;; not sure how people work with those.  I normally use the root of
@@ -533,7 +546,7 @@ arguments."
      (agitate--completion-table-no-sort
       (process-lines
        vc-git-program "log"
-       (format "-n %d" vc-log-show-limit)
+       (format "-n %d" agitate-log-limit)
        "--oneline" "--"))
      nil t nil
      'agitate--vc-git-kill-commit-message-history default-value)))
@@ -548,8 +561,8 @@ When point is in a log-view buffer, make the revision at point
 the default value of the prompt (though also see the command
 `agitate-log-view-kill-revision-expanded').
 
-The number of completion candidates is limited to the value of
-`vc-log-show-limit'."
+The number of revisions in the log is controlled by the user
+option `agitate-log-limit'."
   (interactive
    (list
     (agitate--vc-git-get-hash-from-string

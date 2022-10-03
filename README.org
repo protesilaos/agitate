@@ -177,11 +177,12 @@ non-nil, the root log of the revisions is shown.
 :END:
 
 #+findex: agitate-vc-git-show
+#+vindex: agitate-log-limit
 + Function ~agitate-vc-git-show~ :: Prompt for commit and run
   =git-show(1)= on it. With optional =CURRENT-FILE= as prefix
   argument, limit the commits to those pertaining to the current file.
-  The number of completion candidates is limited to the value of
-  ~vc-log-show-limit~.
+  The number of revisions in the log is controlled by the user option
+  ~agitate-log-limit~.
 
 #+findex: agitate-vc-git-show-tag
 + Function ~agitate-vc-git-show-tag~ :: Run =git-show(1)= on Git
@@ -195,9 +196,9 @@ non-nil, the root log of the revisions is shown.
   string of ~agitate-log-view-kill-revision~.  If there is no such
   commit at point, prompt for =COMMIT= using minibuffer completion.
   Output the patch file to the return value of the function
-  ~vc-root-dir~.  The number of completion candidates is limited to
-  the value of ~vc-log-show-limit~.  Relevant except from the source
-  code:
+  ~vc-root-dir~.  The number of revisions in the log is controlled by
+  the user option ~agitate-log-limit~.  Relevant except from the
+  source code:
 
   #+begin_src emacs-lisp
   ;; TODO 2022-09-27: Handle the output directory better.  Though I am
@@ -224,9 +225,8 @@ non-nil, the root log of the revisions is shown.
   interactively, prompt for =HASH= using minibuffer completion.  When
   point is in a log-view buffer, make the revision at point the
   default value of the prompt (though also see the command
-  ~agitate-log-view-kill-revision-expanded~).  The number of
-  completion candidates is limited to the value of
-  ~vc-log-show-limit~.
+  ~agitate-log-view-kill-revision-expanded~).  The number of revisions
+  in the log is controlled by the user option ~agitate-log-limit~.
 
 #+findex: agitate-vc-git-push-prompt-for-remote
 + Function ~agitate-vc-git-push-prompt-for-remote~ :: Behave like
