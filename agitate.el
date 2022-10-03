@@ -70,6 +70,16 @@ will render those as their corresponding graphical emoji."
   :type '(repeat string)
   :group 'agitate)
 
+(defcustom agitate-log-edit-informative-show-files t
+  "Show applicable files with `agitate-log-edit-informative-mode'."
+  :type 'boolean
+  :group 'agitate)
+
+(defcustom agitate-log-edit-informative-show-root-log nil
+  "Show root revision log with `agitate-log-edit-informative-mode'."
+  :type 'boolean
+  :group 'agitate)
+
 (defun agitate--completion-table-no-sort (candidates &optional category annotation)
   "Make completion table for CANDIDATES with sorting disabled.
 CATEGORY is the completion category.
@@ -224,16 +234,6 @@ Prompt for entry among those declared in
     ": ")))
 
 ;;;;; log-edit "informative" window configuration mode
-
-(defcustom agitate-log-edit-informative-show-files t
-  "Show applicable files with `agitate-log-edit-informative-mode'."
-  :type 'boolean
-  :group 'agitate)
-
-(defcustom agitate-log-edit-informative-show-root-log nil
-  "Show root revision log with `agitate-log-edit-informative-mode'."
-  :type 'boolean
-  :group 'agitate)
 
 (defvar agitate--previous-window-configuration nil
   "Store the last window configuration.")
