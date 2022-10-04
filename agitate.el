@@ -547,7 +547,9 @@ arguments."
       (process-lines
        vc-git-program "log"
        (format "-n %d" agitate-log-limit)
-       "--oneline" "--"))
+       "--pretty=format:%h  %ad  %an: %s"
+       "--date=short"
+       "--"))
      nil t nil
      'agitate--vc-git-kill-commit-message-history default-value)))
 
