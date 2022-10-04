@@ -384,10 +384,9 @@ With optional BACK, find the beginning, else the end."
   (when (string-match "\\b\\([0-9a-z]+\\)\\(\s+\\)?" string)
     (match-string 1 string)))
 
-(defun agitate--vc-git-commit-prompt (&optional file long)
+(defun agitate--vc-git-commit-prompt (&optional file)
   "Prompt for Git commit and return it as a string.
 With optional FILE, limit the commits to those pertinent to it.
-With optional LONG do not abbreviate commit hashes.
 
 The number of revisions in the log is controlled by the user
 option `agitate-log-limit'."
@@ -406,8 +405,9 @@ option `agitate-log-limit'."
       (process-lines
        vc-git-program "log"
        (format "-n %d" agitate-log-limit)
-       (if long "--pretty=oneline" "--oneline")
-       (or file "--")))
+       "--pretty=format:%h  %ad  %an: %s"
+       "--date=short"
+       "--"))
      nil t)))
 
 ;;;###autoload
