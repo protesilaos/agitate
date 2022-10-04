@@ -249,8 +249,8 @@ Prompt for entry among those declared in
 ;; layout after they entre this view but before finalising the
 ;; log-edit?  That would restore the last window configuration, but is
 ;; that the right thing?  Should we dedicate buffers to their windows
-;; and make it unbreakable?  Feels too much...  I think keeping it
-;; simple is better.
+;; and make it unbreakable?  Use atomic windows?  Feels too much...  I
+;; think keeping it simple is better.
 ;;;###autoload
 (define-minor-mode agitate-log-edit-informative-mode
   "PROTOTYPE Apply a specific window configuation when entering log-view mode.
