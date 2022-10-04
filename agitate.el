@@ -553,9 +553,21 @@ arguments."
      nil t nil
      'agitate--vc-git-kill-commit-message-history default-value)))
 
-;; TODO 2022-10-03: Either add a command that copies just the hash
-;; from a completion prompt, or make this accept a prefix argument.  I
-;; prefer a separate command.
+;;;###autoload
+(defun agitate-vc-git-kill-commit-hash ()
+  "Append to `kill-ring' hash of commit.
+Prompt for commit using minibuffer completion.  The number of
+revisions in the log is controlled by the user option
+`agitate-log-limit'.
+
+To kill the message of the commit, use the command
+`agitate-vc-git-kill-commit-message'."
+  (declare (interactive-only t))
+  (interactive)
+  (let ((hash (agitate--vc-git-get-hash-from-string
+               (agitate--vc-git-kill-commit-message-prompt))))
+    (kill-new hash)
+    (message "Added `%s' to `kill-ring'" hash)))
 
 ;;;###autoload
 (defun agitate-vc-git-kill-commit-message (hash)
@@ -568,7 +580,10 @@ the default value of the prompt (though also see the command
 `agitate-log-view-kill-revision-expanded').
 
 The number of revisions in the log is controlled by the user
-option `agitate-log-limit'."
+option `agitate-log-limit'.
+
+To kill only the commit hash, use the command
+`agitate-vc-git-kill-commit-hash'."
   (interactive
    (list
     (agitate--vc-git-get-hash-from-string

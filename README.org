@@ -219,6 +219,13 @@ non-nil, the root log of the revisions is shown.
   Git repository.  Use the original ~vc-git-grep~ for its other
   arguments.
 
+#+findex: agitate-vc-git-kill-commit-hash
++ Function ~agitate-vc-git-kill-commit-hash~ :: Append to ~kill-ring~
+  hash of commit.  Prompt for commit using minibuffer completion.  The
+  number of revisions in the log is controlled by the user option
+  ~agitate-log-limit~.  To kill the message of the commit, use the
+  command ~agitate-vc-git-kill-commit-message~.
+
 #+findex: agitate-vc-git-kill-commit-message
 + Function ~agitate-vc-git-kill-commit-message~ :: Append to
   ~kill-ring~ message of commit with =HASH= identifier.  When called
@@ -226,7 +233,9 @@ non-nil, the root log of the revisions is shown.
   point is in a log-view buffer, make the revision at point the
   default value of the prompt (though also see the command
   ~agitate-log-view-kill-revision-expanded~).  The number of revisions
-  in the log is controlled by the user option ~agitate-log-limit~.
+  in the log is controlled by the user option ~agitate-log-limit~.  To
+  kill only the commit hash, use the command
+  ~agitate-vc-git-kill-commit-hash~.
 
 #+findex: agitate-vc-git-push-prompt-for-remote
 + Function ~agitate-vc-git-push-prompt-for-remote~ :: Behave like
