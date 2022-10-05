@@ -590,7 +590,7 @@ To kill only the commit hash, use the command
      (agitate--vc-git-kill-commit-message-prompt))))
   (kill-new
    (with-temp-buffer
-     (apply 'vc-git-command t nil nil (list "show" hash "--stat" "--no-color" "--"))
+     (vc-git--call t "show" "--stat" "--no-color" hash "--")
      (buffer-substring-no-properties (point-min) (point-max))))
   (message "Added %s commit message to `kill-ring'" hash))
 
