@@ -425,9 +425,8 @@ option `agitate-log-limit'."
            (revision (agitate--vc-git-get-hash-from-string
                       (agitate--vc-git-commit-prompt
                        f)))
-           (buf "*agitate-vc-git-show*")
-           (args (list "show" "--patch-with-stat" revision)))
-      (apply 'vc-git-command (get-buffer-create buf) nil f args)
+           (buf "*agitate-vc-git-show*"))
+      (vc-git--call (get-buffer-create buf) "show" "--patch-with-stat" revision)
       ;; TODO 2022-09-27: What else do we need to set up in such a
       ;; buffer?
       (with-current-buffer (pop-to-buffer buf)
@@ -436,7 +435,7 @@ option `agitate-log-limit'."
                     (lambda (_ignore-auto _noconfirm)
                       (let ((inhibit-read-only t))
                         (erase-buffer)
-                        (apply 'vc-git-command (get-buffer buf) nil f args)
+                        (vc-git--call buf "show" "--patch-with-stat" revision)
                         (goto-char (point-min)))))
         (goto-char (point-min))))))
 
