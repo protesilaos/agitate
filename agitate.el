@@ -499,8 +499,7 @@ option `agitate-log-limit'."
   ;; ~/Desktop or some dedicated "patches" directory.
   (when-let* ((root (vc-root-dir))
               (default-directory root))
-    (apply 'vc-git-command nil nil nil
-           (list "format-patch" "-1" commit "--"))))
+    (vc-git--call nil "format-patch" "-1" commit "--")))
 
 ;;;###autoload
 (defun agitate-vc-git-format-patch-n-from-head (number)
@@ -508,8 +507,7 @@ option `agitate-log-limit'."
 This is the eqvuivalent of: git format-patch -NUMBER."
   (interactive (list (read-number "git format-patch -NUMBER: ")))
   (if (natnump number)
-      (apply 'vc-git-command nil 0 nil
-             (list "format-patch" (format "-%d" number)))
+      (vc-git--call nil "format-patch" (format "-%d" number))
     (user-error "NUMBER must satisfy `natnump'; `%s' does not" number)))
 
 ;;;###autoload
