@@ -456,9 +456,8 @@ option `agitate-log-limit'."
 When called interactively, prompt for TAG using minibuffer
 completion."
   (interactive (list (agitate--vc-git-tag-prompt)))
-  (let* ((buf "*agitate-vc-git-show*")
-         (args (list "show" tag)))
-    (apply 'vc-git-command (get-buffer-create buf) nil nil args)
+  (let* ((buf "*agitate-vc-git-show*"))
+    (vc-git--call (get-buffer-create buf) "show" tag)
     ;; TODO 2022-09-27: What else do we need to set up in such a
     ;; buffer?
     (with-current-buffer (pop-to-buffer buf)
@@ -467,7 +466,7 @@ completion."
                   (lambda (_ignore-auto _noconfirm)
                     (let ((inhibit-read-only t))
                       (erase-buffer)
-                      (apply 'vc-git-command (get-buffer buf) nil nil args)
+                      (vc-git--call buf "show" tag)
                       (goto-char (point-min)))))
       (goto-char (point-min)))))
 
