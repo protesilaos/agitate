@@ -273,23 +273,6 @@ Restore the last window configuration when finalising log-view."
 ;; helpful or will it cause confusion?  If it is useful, the idea is
 ;; to add a `defcustom' for it.
 
-;;;###autoload
-(defun agitate-log-edit-show-root-log (&optional current-files)
-  "PROTOTYPE Like `vc-print-root-log' for `log-edit' buffers.
-When optional CURRENT-FILES is non-nil, limit the revision log to
-the `log-edit-files'.
-
-The number of revisions in the log is controlled by the user
-option `agitate-log-limit'."
-  (when-let* ((files (log-edit-files))
-              ;; FIXME 2022-10-01: What happens with backends that do
-              ;; not support short logs?  Do we need to handle
-              ;; anything here?
-              (vc-log-short-style '(file)))
-    (vc-print-log-internal
-     (vc-responsible-backend default-directory)
-     (when current-files files) nil nil agitate-log-limit)))
-
 (defun agitate--log-edit-informative-setup ()
   "Set up informative `log-edit' window configuration."
   (setq agitate--previous-window-configuration (current-window-configuration))
@@ -303,7 +286,8 @@ option `agitate-log-limit'."
     (log-edit-hide-buf log-edit-files-buf))
   (when agitate-log-edit-informative-show-root-log
     (save-selected-window
-      (agitate-log-edit-show-root-log))))
+      (let ((vc-log-show-limit agitate-log-limit))
+        (vc-print-root-log)))))
 
 (defun agitate--log-edit-informative-restore ()
   "Restore `agitate--previous-window-configuration'."
