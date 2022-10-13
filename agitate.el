@@ -266,6 +266,10 @@ Restore the last window configuration when finalising log-view."
 
 (defun agitate--log-edit-informative-setup ()
   "Set up informative `log-edit' window configuration."
+  ;; FIXME 2022-10-13: The window configuration needs to be saved at
+  ;; an earlier stage.  Hooking it to 'vc-before-checkin-hook' or
+  ;; `vc-checkin-hook' seems appropriate, though it then breaks the
+  ;; C-c C-c in log-edit buffers (the C-c C-k works).
   (setq agitate--previous-window-configuration (current-window-configuration))
   (delete-other-windows)
   (add-hook 'log-edit-done-hook #'agitate--log-edit-informative-restore nil t)
