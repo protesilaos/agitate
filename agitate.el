@@ -264,15 +264,6 @@ Restore the last window configuration when finalising log-view."
     (remove-hook 'log-edit-hook #'agitate--log-edit-informative-setup)
     (remove-hook 'log-edit-mode-hook #'agitate--log-edit-informative-handle-kill-buffer)))
 
-;; TODO 2022-10-01: Display it below log edit buf?  Or be
-;; unopinionated about it?  I think placing it below the `log-edit'
-;; buffer looks best, with the `log-edit-show-files' further below it
-;; and the diff to their right.
-
-;; TODO 2022-10-01: Does the CURRENT-FILES make sense?  Will it be
-;; helpful or will it cause confusion?  If it is useful, the idea is
-;; to add a `defcustom' for it.
-
 (defun agitate--log-edit-informative-setup ()
   "Set up informative `log-edit' window configuration."
   (setq agitate--previous-window-configuration (current-window-configuration))
