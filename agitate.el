@@ -76,7 +76,9 @@ will render those as their corresponding graphical emoji."
   :group 'agitate)
 
 (defcustom agitate-log-edit-informative-show-root-log nil
-  "Show root revision log with `agitate-log-edit-informative-mode'."
+  "Show root revision log with `agitate-log-edit-informative-mode'.
+Place the window below the one which displays the `log-edit'
+buffer."
   :type 'boolean
   :group 'agitate)
 

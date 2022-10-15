@@ -148,7 +148,8 @@ action is shown below the log-edit buffer.
 
 #+vindex: agitate-log-edit-informative-show-root-log
 When the user option ~agitate-log-edit-informative-show-root-log~ is
-non-nil, the root log of the revisions is shown.
+non-nil, the root log of the revisions is shown below the window that
+displays the log-edit buffer.
 
 ** Extras for log-view
 :PROPERTIES:
