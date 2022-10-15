@@ -279,12 +279,13 @@ Restore the last window configuration when finalising log-view."
   (if agitate-log-edit-informative-show-files
       (log-edit-show-files)
     (log-edit-hide-buf log-edit-files-buf))
-  ;; FIXME 2022-10-13: `let' bind a display-buffer-alist entry to show
-  ;; this below the current window.  Otherwise this does not work as
-  ;; intended, since it replaces the log-edit buffer.
   (when agitate-log-edit-informative-show-root-log
     (save-selected-window
-      (let ((vc-log-show-limit agitate-log-limit))
+      (let ((vc-log-show-limit agitate-log-limit)
+            (display-buffer-alist
+             (cons (list (cons 'derived-mode 'log-view-mode)
+                         (list 'display-buffer-below-selected))
+                   display-buffer-alist)))
         (vc-print-root-log)))))
 
 (defun agitate--log-edit-informative-restore ()
