@@ -397,6 +397,19 @@ option `agitate-log-limit'."
      nil t)))
 
 ;;;###autoload
+(defun agitate-vc-git-find-revision ()
+  "Find revision of current file, visiting it in a buffer.
+Prompt with completion for the revision."
+  (declare (interactive-only t))
+  (interactive)
+  (when-let* ((fileset (vc-deduce-fileset))
+              (file (caadr fileset))
+              (revision (agitate--vc-git-get-hash-from-string
+                         (agitate--vc-git-commit-prompt
+                          file))))
+    (pop-to-buffer (vc-find-revision file revision (car fileset)))))
+
+;;;###autoload
 (defun agitate-vc-git-show (&optional current-file)
   "Prompt for commit and run `git-show(1)' on it.
 With optional CURRENT-FILE as prefix argument, limit the commits

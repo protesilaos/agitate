@@ -177,6 +177,10 @@ displays the log-edit buffer.
 :CUSTOM_ID: h:f1a1f462-b6db-415a-b8e6-ba23788cb6e3
 :END:
 
+#+findex: agitate-vc-git-find-revision
++ Function ~agitate-vc-git-find-revision~ :: Find revision of current
+  file, visiting it in a buffer.  Prompt with completion for the revision.
+
 #+findex: agitate-vc-git-show
 #+vindex: agitate-log-limit
 + Function ~agitate-vc-git-show~ :: Prompt for commit and run
