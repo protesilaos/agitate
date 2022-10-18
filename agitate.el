@@ -276,6 +276,7 @@ Restore the last window configuration when finalising log-view."
   (delete-other-windows)
   (add-hook 'log-edit-done-hook #'agitate--log-edit-informative-restore nil t)
   (add-hook 'log-edit-hook #'agitate--log-edit-informative-restore nil t)
+  ;; FIXME 2022-10-18: Fails in an empty repo.
   (save-selected-window
     (log-edit-show-diff))
   (if agitate-log-edit-informative-show-files
