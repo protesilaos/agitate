@@ -151,7 +151,7 @@ action is shown below the ~log-edit~ buffer.
 When the user option ~agitate-log-edit-informative-show-root-log~ is
 non-nil, the root log of the revisions is shown below the window that
 displays the ~log-edit~ buffer.  Its contents are bound by the value
-of the user option ~agitate-log-limit~
+of the user option ~agitate-log-limit~.
 
 ** Extras for log-view
 :PROPERTIES:
