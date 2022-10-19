@@ -405,6 +405,14 @@ to browse through the file's history."
                           file))))
     (pop-to-buffer (vc-find-revision file revision (car fileset)))))
 
+(defun agitate--vc-git-show-revert (&rest args)
+  "Run `vc-git--call' with ARGS.
+This is a helper for git-show(1) `revert-buffer-function'."
+  (let ((inhibit-read-only t))
+    (erase-buffer)
+    (apply 'vc-git--call args)
+    (goto-char (point-min))))
+
 ;;;###autoload
 (defun agitate-vc-git-show (&optional current-file)
   "Prompt for commit and run `git-show(1)' on it.
@@ -433,10 +441,7 @@ to browse through the available commits."
         (diff-mode)
         (setq-local revert-buffer-function
                     (lambda (_ignore-auto _noconfirm)
-                      (let ((inhibit-read-only t))
-                        (erase-buffer)
-                        (vc-git--call buf "show" "--patch-with-stat" revision)
-                        (goto-char (point-min)))))
+                        (agitate--vc-git-show-revert buf "show" "--patch-with-stat" revision)))
         (goto-char (point-min))))))
 
 (defun agitate--vc-git-tag-prompt ()
@@ -470,9 +475,7 @@ to browse through the available tags."
       (setq-local revert-buffer-function
                   (lambda (_ignore-auto _noconfirm)
                     (let ((inhibit-read-only t))
-                      (erase-buffer)
-                      (vc-git--call buf "show" tag)
-                      (goto-char (point-min)))))
+                      (agitate--vc-git-show-revert buf "show" tag))))
       (goto-char (point-min)))))
 
 (defun agitate--vc-git-format-patch-single-commit ()
