@@ -443,7 +443,8 @@ option `agitate-log-limit'."
 When called interactively, prompt for TAG using minibuffer
 completion."
   (interactive (list (agitate--vc-git-tag-prompt)))
-  (let* ((buf "*agitate-vc-git-show*"))
+  (let* ((buf "*agitate-vc-git-show*")
+         (inhibit-read-only t))
     (vc-git--call (get-buffer-create buf) "show" tag)
     (with-current-buffer (pop-to-buffer buf)
       (diff-mode)
