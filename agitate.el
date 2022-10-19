@@ -288,7 +288,8 @@ either with `log-edit-kill-buffer' or `log-edit-done'."
   (add-hook 'kill-buffer-hook #'agitate--log-edit-informative-restore nil t)
   ;; FIXME 2022-10-18: Fails in an empty repo.  It is not nice to use
   ;; `ignore-errors', as we should not display any window in such a
-  ;; scenario.
+  ;; scenario.  Which VC function can check for a repo without
+  ;; revisions?
   (save-selected-window
     (log-edit-show-diff))
   (if agitate-log-edit-informative-show-files
