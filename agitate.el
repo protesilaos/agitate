@@ -286,23 +286,24 @@ either with `log-edit-kill-buffer' or `log-edit-done'."
   "Set up informative `log-edit' window configuration."
   (delete-other-windows)
   (add-hook 'kill-buffer-hook #'agitate--log-edit-informative-restore nil t)
-  ;; FIXME 2022-10-18: Fails in an empty repo.  It is not nice to use
+  ;; FIXME 2022-10-19: Fails in an empty repo.  It is not nice to use
   ;; `ignore-errors', as we should not display any window in such a
   ;; scenario.  Which VC function can check for a repo without
   ;; revisions?
-  (save-selected-window
-    (log-edit-show-diff))
-  (if agitate-log-edit-informative-show-files
-      (log-edit-show-files)
-    (log-edit-hide-buf log-edit-files-buf))
-  (when agitate-log-edit-informative-show-root-log
+  (ignore-errors
     (save-selected-window
-      (let ((vc-log-show-limit agitate-log-limit)
-            (display-buffer-alist
-             (cons (list (cons 'derived-mode 'log-view-mode)
-                         (list 'display-buffer-below-selected))
-                   display-buffer-alist)))
-        (vc-print-root-log)))))
+      (log-edit-show-diff))
+    (if agitate-log-edit-informative-show-files
+        (log-edit-show-files)
+      (log-edit-hide-buf log-edit-files-buf))
+    (when agitate-log-edit-informative-show-root-log
+      (save-selected-window
+        (let ((vc-log-show-limit agitate-log-limit)
+              (display-buffer-alist
+               (cons (list (cons 'derived-mode 'log-view-mode)
+                           (list 'display-buffer-below-selected))
+                     display-buffer-alist)))
+          (vc-print-root-log))))))
 
 (defun agitate--log-edit-informative-restore ()
   "Restore `agitate--previous-window-configuration'."
