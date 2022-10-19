@@ -135,21 +135,23 @@ commits" are documented here: <https://www.conventionalcommits.org/en/v1.0.0/>.
 
 #+findex: agitate-log-edit-informative-mode
 #+vindex: agitate-log-edit-informative-mode
-The ~agitate-log-edit-informative-mode~ is the PROTOTYPE of a global
-minor mode that rearranges the window configuration (layout) while
-bringing up a log-edit buffer (such as what happens when =C-x v v=
+The ~agitate-log-edit-informative-mode~ is a global minor mode that
+rearranges the window configuration (layout) when bringing up a
+~log-edit~ buffer (such as what happens when =C-x v v=
 (~vc-next-action~) is about to commit the changes).  It shows the
-log-edit buffer on the left and the corresponding diff on the right.
+~log-edit~ buffer on the left and the corresponding diff on the right.
 
 #+vindex: agitate-log-edit-informative-show-files
 When the user option ~agitate-log-edit-informative-show-files~ is
 non-nil (the default), the list of files pertinent to the current
-action is shown below the log-edit buffer.
+action is shown below the ~log-edit~ buffer.
 
 #+vindex: agitate-log-edit-informative-show-root-log
+#+vindex: agitate-log-limit
 When the user option ~agitate-log-edit-informative-show-root-log~ is
 non-nil, the root log of the revisions is shown below the window that
-displays the log-edit buffer.
+displays the ~log-edit~ buffer.  Its contents are bound by the value
+of the user option ~agitate-log-limit~
 
 ** Extras for log-view
 :PROPERTIES:
