@@ -306,10 +306,13 @@ either with `log-edit-kill-buffer' or `log-edit-done'."
           (vc-print-root-log))))))
 
 (defun agitate--log-edit-informative-restore ()
-  "Restore `agitate--previous-window-configuration'."
-  (set-window-configuration agitate--previous-window-configuration)
+  "Restore `agitate--previous-window-configuration' and clean state."
+  (when agitate--previous-window-configuration
+    (set-window-configuration agitate--previous-window-configuration)
+    (setq agitate--previous-window-configuration nil))
   (when agitate--previous-window-point
-    (goto-char agitate--previous-window-point)))
+    (goto-char agitate--previous-window-point)
+    (setq agitate--previous-window-point nil)))
 
 ;;;; Commands for log-view (listings of commits)
 
