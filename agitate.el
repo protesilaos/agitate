@@ -426,7 +426,9 @@ to browse through the available commits."
                        f)))
            (buf "*agitate-vc-git-show*")
            (inhibit-read-only t))
-      (vc-git--call (get-buffer-create buf) "show" "--patch-with-stat" revision)
+      (with-current-buffer (get-buffer-create buf)
+        (erase-buffer))
+      (vc-git--call buf "show" "--patch-with-stat" revision)
       (with-current-buffer (pop-to-buffer buf)
         (diff-mode)
         (setq-local revert-buffer-function
@@ -460,7 +462,9 @@ to browse through the available tags."
   (interactive (list (agitate--vc-git-tag-prompt)))
   (let* ((buf "*agitate-vc-git-show*")
          (inhibit-read-only t))
-    (vc-git--call (get-buffer-create buf) "show" tag)
+    (with-current-buffer (get-buffer-create buf)
+        (erase-buffer))
+    (vc-git--call buf "show" tag)
     (with-current-buffer (pop-to-buffer buf)
       (diff-mode)
       (setq-local revert-buffer-function
