@@ -249,8 +249,9 @@ Prompt for entry among those declared in
 
 ;;;###autoload
 (define-minor-mode agitate-log-edit-informative-mode
-  "PROTOTYPE Apply a specific window configuation when entering log-view mode.
-Restore the last window configuration when finalising log-view."
+  "Apply a specific window configuation when entering `log-edit'.
+Restore the last window configuration when finalising `log-edit',
+either with `log-edit-kill-buffer' or `log-edit-done'."
   :init-value nil
   :global t
   (if agitate-log-edit-informative-mode
