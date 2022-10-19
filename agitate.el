@@ -382,7 +382,7 @@ option `agitate-log-limit'."
        (format "-n %d" agitate-log-limit)
        "--pretty=format:%h  %ad  %an: %s"
        "--date=short"
-       "--"))
+       (or file "--")))
      nil t)))
 
 ;;;###autoload
