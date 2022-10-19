@@ -179,7 +179,12 @@ displays the log-edit buffer.
 
 #+findex: agitate-vc-git-find-revision
 + Function ~agitate-vc-git-find-revision~ :: Find revision of current
-  file, visiting it in a buffer.  Prompt with completion for the revision.
+  file, visiting it in a buffer.  Prompt with completion for the
+  revision.  The number of revisions in the log is controlled by the
+  user option ~agitate-log-limit~.  Pro tip: if you are using the
+  =embark= package, you can produce a snapshot of the minibuffer
+  prompt.  Then use the resulting buffer to browse through the file's
+  history.
 
 #+findex: agitate-vc-git-show
 #+vindex: agitate-log-limit
@@ -187,12 +192,16 @@ displays the log-edit buffer.
   =git-show(1)= on it. With optional =CURRENT-FILE= as prefix
   argument, limit the commits to those pertaining to the current file.
   The number of revisions in the log is controlled by the user option
-  ~agitate-log-limit~.
+  ~agitate-log-limit~.  Pro tip: if you are using the =embark=
+  package, you can produce a snapshot of the minibuffer prompt.  Then
+  use the resulting buffer to browse through the available commits.
 
 #+findex: agitate-vc-git-show-tag
 + Function ~agitate-vc-git-show-tag~ :: Run =git-show(1)= on Git
   =TAG=.  When called interactively, prompt for TAG using minibuffer
-  completion.
+  completion.  Pro tip: if you are using the =embark= package, you can
+  produce a snapshot of the minibuffer prompt.  Then use the resulting
+  buffer to browse through the available tags.
 
 #+findex: agitate-vc-git-format-patch-single
 + Function ~agitate-vc-git-format-patch-single~ :: Format patch for a

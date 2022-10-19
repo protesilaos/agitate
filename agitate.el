@@ -388,7 +388,14 @@ option `agitate-log-limit'."
 ;;;###autoload
 (defun agitate-vc-git-find-revision ()
   "Find revision of current file, visiting it in a buffer.
-Prompt with completion for the revision."
+Prompt with completion for the revision.
+
+The number of revisions in the log is controlled by the user
+option `agitate-log-limit'.
+
+Pro tip: if you are using the `embark' package, you can produce a
+snapshot of the minibuffer prompt.  Then use the resulting buffer
+to browse through the file's history."
   (declare (interactive-only t))
   (interactive)
   (when-let* ((fileset (vc-deduce-fileset))
@@ -405,7 +412,11 @@ With optional CURRENT-FILE as prefix argument, limit the commits
 to those pertaining to the current file.
 
 The number of revisions in the log is controlled by the user
-option `agitate-log-limit'."
+option `agitate-log-limit'.
+
+Pro tip: if you are using the `embark' package, you can produce a
+snapshot of the minibuffer prompt.  Then use the resulting buffer
+to browse through the available commits."
   (declare (interactive-only t))
   (interactive "P")
   (when-let ((file (caadr (vc-deduce-fileset))))
@@ -441,7 +452,11 @@ option `agitate-log-limit'."
 (defun agitate-vc-git-show-tag (tag)
   "Run `git-show(1)' on Git TAG.
 When called interactively, prompt for TAG using minibuffer
-completion."
+completion.
+
+Pro tip: if you are using the `embark' package, you can produce a
+snapshot of the minibuffer prompt.  Then use the resulting buffer
+to browse through the available tags."
   (interactive (list (agitate--vc-git-tag-prompt)))
   (let* ((buf "*agitate-vc-git-show*")
          (inhibit-read-only t))
