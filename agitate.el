@@ -247,6 +247,17 @@ Prompt for entry among those declared in
 ;;;###autoload
 (define-minor-mode agitate-log-edit-informative-mode
   "Apply a specific window configuation when entering `log-edit'.
+
+Show the `log-edit' window on the left, with the corresponding
+diff on the right.
+
+If `agitate-log-edit-informative-show-root-log' is non-nil, run
+`vc-print-root-log' subject to `agitate-log-limit'.  Display it
+below the `log-edit' window.
+
+If `agitate-log-edit-informative-show-files' is non-nil, show the
+`log-edit-files' further below.
+
 Restore the last window configuration when finalising `log-edit',
 either with `log-edit-kill-buffer' or `log-edit-done'."
   :init-value nil
