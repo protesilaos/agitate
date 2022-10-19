@@ -259,17 +259,22 @@ If `agitate-log-edit-informative-show-files' is non-nil, show the
 `log-edit-files' further below.
 
 Restore the last window configuration when finalising `log-edit',
-either with `log-edit-kill-buffer' or `log-edit-done'."
+either with `log-edit-kill-buffer' or `log-edit-done'.
+
+Always kill the buffer used to perform the editing.  Ignore the
+user option `log-edit-keep-buffer'."
   :init-value nil
   :global t
   (if agitate-log-edit-informative-mode
       (progn
         (add-hook 'vc-before-checkin-hook #'agitate--log-edit-informative-save-windows)
         (add-hook 'log-edit-hook #'agitate--log-edit-informative-setup)
-        (add-hook 'vc-checkin-hook #'agitate--log-edit-informative-restore))
+        (add-hook 'vc-checkin-hook #'agitate--log-edit-informative-restore)
+        (add-hook 'vc-checkin-hook #'agitate--log-edit-informative-kill-buffer))
     (remove-hook 'vc-before-checkin-hook #'agitate--log-edit-informative-save-windows)
     (remove-hook 'log-edit-hook #'agitate--log-edit-informative-setup)
-    (remove-hook 'vc-checkin-hook #'agitate--log-edit-informative-restore)))
+    (remove-hook 'vc-checkin-hook #'agitate--log-edit-informative-restore)
+    (remove-hook 'vc-checkin-hook #'agitate--log-edit-informative-kill-buffer)))
 
 (defvar agitate--previous-window-configuration nil
   "Store the last window configuration.")
@@ -313,6 +318,11 @@ either with `log-edit-kill-buffer' or `log-edit-done'."
   (when agitate--previous-window-point
     (goto-char agitate--previous-window-point)
     (setq agitate--previous-window-point nil)))
+
+(defun agitate--log-edit-informative-kill-buffer ()
+  "Kill the vc-log buffer."
+  ;; TODO 2022-10-19: More robust way to get the buffer?
+  (kill-buffer (get-buffer "*vc-log*")))
 
 ;;;; Commands for log-view (listings of commits)
 
