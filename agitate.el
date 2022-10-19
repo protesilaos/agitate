@@ -413,7 +413,8 @@ option `agitate-log-limit'."
            (revision (agitate--vc-git-get-hash-from-string
                       (agitate--vc-git-commit-prompt
                        f)))
-           (buf "*agitate-vc-git-show*"))
+           (buf "*agitate-vc-git-show*")
+           (inhibit-read-only t))
       (vc-git--call (get-buffer-create buf) "show" "--patch-with-stat" revision)
       (with-current-buffer (pop-to-buffer buf)
         (diff-mode)
