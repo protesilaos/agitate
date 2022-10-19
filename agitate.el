@@ -255,22 +255,24 @@ Restore the last window configuration when finalising log-view."
   :global t
   (if agitate-log-edit-informative-mode
       (progn
+        (add-hook 'vc-before-checkin-hook #'agitate--log-edit-informative-save-windows)
         (add-hook 'log-edit-hook #'agitate--log-edit-informative-setup)
-        (add-hook 'log-edit-mode-hook #'agitate--log-edit-informative-handle-kill-buffer))
+        (advice-add #'log-edit-done :after #'agitate--log-edit-informative-restore))
+    (remove-hook 'vc-before-checkin-hook #'agitate--log-edit-informative-save-windows)
     (remove-hook 'log-edit-hook #'agitate--log-edit-informative-setup)
-    (remove-hook 'log-edit-mode-hook #'agitate--log-edit-informative-handle-kill-buffer)))
+    (advice-remove #'log-edit-done #'agitate--log-edit-informative-restore)))
+
+(defun agitate--log-edit-informative-save-windows ()
+  "Save `current-window-configuration'."
+  (setq agitate--previous-window-configuration (current-window-configuration)))
 
 (defun agitate--log-edit-informative-setup ()
   "Set up informative `log-edit' window configuration."
-  ;; FIXME 2022-10-13: The window configuration needs to be saved at
-  ;; an earlier stage.  Hooking it to 'vc-before-checkin-hook' or
-  ;; `vc-checkin-hook' seems appropriate, though it then breaks the
-  ;; C-c C-c in log-edit buffers (the C-c C-k works).
-  (setq agitate--previous-window-configuration (current-window-configuration))
   (delete-other-windows)
-  (add-hook 'log-edit-done-hook #'agitate--log-edit-informative-restore nil t)
-  (add-hook 'log-edit-hook #'agitate--log-edit-informative-restore nil t)
-  ;; FIXME 2022-10-18: Fails in an empty repo.
+  (add-hook 'kill-buffer-hook #'agitate--log-edit-informative-restore nil t)
+  ;; FIXME 2022-10-18: Fails in an empty repo.  It is not nice to use
+  ;; `ignore-errors', as we should not display any window in such a
+  ;; scenario.
   (save-selected-window
     (log-edit-show-diff))
   (if agitate-log-edit-informative-show-files
@@ -288,11 +290,6 @@ Restore the last window configuration when finalising log-view."
 (defun agitate--log-edit-informative-restore ()
   "Restore `agitate--previous-window-configuration'."
   (set-window-configuration agitate--previous-window-configuration))
-
-(defun agitate--log-edit-informative-handle-kill-buffer ()
-  "Restore `agitate--previous-window-configuration' if killed."
-  (when (derived-mode-p 'log-edit-mode)
-    (add-hook 'kill-buffer-hook #'agitate--log-edit-informative-restore 0 t)))
 
 ;;;; Commands for log-view (listings of commits)
 
