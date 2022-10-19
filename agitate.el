@@ -247,12 +247,6 @@ Prompt for entry among those declared in
 (defvar agitate--previous-window-configuration nil
   "Store the last window configuration.")
 
-;; FIXME 2022-10-01: What happens if the user changes the window
-;; layout after they entre this view but before finalising the
-;; log-edit?  That would restore the last window configuration, but is
-;; that the right thing?  Should we dedicate buffers to their windows
-;; and make it unbreakable?  Use atomic windows?  Feels too much...  I
-;; think keeping it simple is better.
 ;;;###autoload
 (define-minor-mode agitate-log-edit-informative-mode
   "PROTOTYPE Apply a specific window configuation when entering log-view mode.
@@ -382,11 +376,6 @@ option `agitate-log-limit'."
          (default-directory (vc-root-dir)))
     (completing-read
      prompt
-     ;; TODO 2022-09-29: Define a completion category that can work
-     ;; with `consult', `embark', `marginalia', and friends?
-     ;;
-     ;; TODO 2022-09-29: Define an annotation function?  Though we can
-     ;; just tweak the git arguments.
      (agitate--completion-table-no-sort
       (process-lines
        vc-git-program "log"
@@ -426,8 +415,6 @@ option `agitate-log-limit'."
                        f)))
            (buf "*agitate-vc-git-show*"))
       (vc-git--call (get-buffer-create buf) "show" "--patch-with-stat" revision)
-      ;; TODO 2022-09-27: What else do we need to set up in such a
-      ;; buffer?
       (with-current-buffer (pop-to-buffer buf)
         (diff-mode)
         (setq-local revert-buffer-function
@@ -457,8 +444,6 @@ completion."
   (interactive (list (agitate--vc-git-tag-prompt)))
   (let* ((buf "*agitate-vc-git-show*"))
     (vc-git--call (get-buffer-create buf) "show" tag)
-    ;; TODO 2022-09-27: What else do we need to set up in such a
-    ;; buffer?
     (with-current-buffer (pop-to-buffer buf)
       (diff-mode)
       (setq-local revert-buffer-function
