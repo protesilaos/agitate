@@ -244,12 +244,6 @@ Prompt for entry among those declared in
 
 ;;;;; log-edit "informative" window configuration mode
 
-(defvar agitate--previous-window-configuration nil
-  "Store the last window configuration.")
-
-(defvar agitate--previous-window-point nil
-  "Store the last window `point'.")
-
 ;;;###autoload
 (define-minor-mode agitate-log-edit-informative-mode
   "Apply a specific window configuation when entering `log-edit'.
@@ -265,6 +259,12 @@ either with `log-edit-kill-buffer' or `log-edit-done'."
     (remove-hook 'vc-before-checkin-hook #'agitate--log-edit-informative-save-windows)
     (remove-hook 'log-edit-hook #'agitate--log-edit-informative-setup)
     (advice-remove #'log-edit-done #'agitate--log-edit-informative-restore)))
+
+(defvar agitate--previous-window-configuration nil
+  "Store the last window configuration.")
+
+(defvar agitate--previous-window-point nil
+  "Store the last window `point'.")
 
 (defun agitate--log-edit-informative-save-windows ()
   "Save `current-window-configuration'."
