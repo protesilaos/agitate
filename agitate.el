@@ -490,7 +490,9 @@ Output the patch file to the return value of the function
 `vc-root-dir'.
 
 The number of revisions in the log is controlled by the user
-option `agitate-log-limit'."
+option `agitate-log-limit'.
+
+For Emacs 29, consider using `vc-prepare-patch'."
   (interactive (list (agitate--vc-git-format-patch-single-commit)))
   ;; TODO 2022-09-27: Handle the output directory better.  Though I am
   ;; not sure how people work with those.  I normally use the root of
@@ -503,7 +505,9 @@ option `agitate-log-limit'."
 ;;;###autoload
 (defun agitate-vc-git-format-patch-n-from-head (number)
   "Format patches covering NUMBER of commits from current HEAD.
-This is the eqvuivalent of: git format-patch -NUMBER."
+This is the eqvuivalent of: git format-patch -NUMBER.
+
+For Emacs 29, consider using `vc-prepare-patch'."
   (interactive (list (read-number "git format-patch -NUMBER: ")))
   (if (natnump number)
       (vc-git--call nil "format-patch" (format "-%d" number))
