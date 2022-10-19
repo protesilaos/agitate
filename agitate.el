@@ -247,6 +247,9 @@ Prompt for entry among those declared in
 (defvar agitate--previous-window-configuration nil
   "Store the last window configuration.")
 
+(defvar agitate--previous-window-point nil
+  "Store the last window `point'.")
+
 ;;;###autoload
 (define-minor-mode agitate-log-edit-informative-mode
   "Apply a specific window configuation when entering `log-edit'.
@@ -265,7 +268,8 @@ either with `log-edit-kill-buffer' or `log-edit-done'."
 
 (defun agitate--log-edit-informative-save-windows ()
   "Save `current-window-configuration'."
-  (setq agitate--previous-window-configuration (current-window-configuration)))
+  (setq agitate--previous-window-point (point)
+        agitate--previous-window-configuration (current-window-configuration)))
 
 (defun agitate--log-edit-informative-setup ()
   "Set up informative `log-edit' window configuration."
@@ -290,7 +294,9 @@ either with `log-edit-kill-buffer' or `log-edit-done'."
 
 (defun agitate--log-edit-informative-restore ()
   "Restore `agitate--previous-window-configuration'."
-  (set-window-configuration agitate--previous-window-configuration))
+  (set-window-configuration agitate--previous-window-configuration)
+  (when agitate--previous-window-point
+    (goto-char agitate--previous-window-point)))
 
 ;;;; Commands for log-view (listings of commits)
 
