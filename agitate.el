@@ -266,10 +266,10 @@ either with `log-edit-kill-buffer' or `log-edit-done'."
       (progn
         (add-hook 'vc-before-checkin-hook #'agitate--log-edit-informative-save-windows)
         (add-hook 'log-edit-hook #'agitate--log-edit-informative-setup)
-        (advice-add #'log-edit-done :after #'agitate--log-edit-informative-restore))
+        (add-hook 'vc-checkin-hook #'agitate--log-edit-informative-restore))
     (remove-hook 'vc-before-checkin-hook #'agitate--log-edit-informative-save-windows)
     (remove-hook 'log-edit-hook #'agitate--log-edit-informative-setup)
-    (advice-remove #'log-edit-done #'agitate--log-edit-informative-restore)))
+    (remove-hook 'vc-checkin-hook #'agitate--log-edit-informative-restore)))
 
 (defvar agitate--previous-window-configuration nil
   "Store the last window configuration.")
