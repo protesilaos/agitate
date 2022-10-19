@@ -335,8 +335,10 @@ Everything is in place to set up the package.
 (let ((map global-map))
   (define-key map (kbd "C-x v =") #'agitate-diff-buffer-or-file) ; replace `vc-diff'
   (define-key map (kbd "C-x v g") #'agitate-vc-git-grep) ; replace `vc-annotate'
+  (define-key map (kbd "C-x v f") #'agitate-vc-git-find-revision)
   (define-key map (kbd "C-x v s") #'agitate-vc-git-show)
-  (define-key map (kbd "C-x v c") #'agitate-vc-git-format-patch-single))
+  (define-key map (kbd "C-x v p p") #'agitate-vc-git-format-patch-single)
+  (define-key map (kbd "C-x v p n") #'agitate-vc-git-format-patch-n-from-head))
 (let ((map diff-mode-map))
   (define-key map (kbd "C-c C-b") #'agitate-diff-refine-cycle) ; replace `diff-refine-hunk'
   (define-key map (kbd "C-c C-n") #'agitate-diff-narrow-dwim))
