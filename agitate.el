@@ -318,7 +318,10 @@ user option `log-edit-keep-buffer'."
 (defun agitate--log-edit-informative-restore ()
   "Restore `agitate--previous-window-configuration' and clean state."
   (when agitate--previous-window-configuration
-    (set-window-configuration agitate--previous-window-configuration)
+    (set-window-configuration
+     agitate--previous-window-configuration
+     :dont-set-frame
+     :dont-set-miniwindow)
     (setq agitate--previous-window-configuration nil))
   (when (and agitate--previous-window
              agitate--previous-window-point
