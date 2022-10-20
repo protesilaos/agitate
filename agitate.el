@@ -321,8 +321,9 @@ user option `log-edit-keep-buffer'."
 
 (defun agitate--log-edit-informative-kill-buffer ()
   "Kill the vc-log buffer."
-  ;; TODO 2022-10-19: More robust way to get the buffer?
-  (kill-buffer (get-buffer "*vc-log*")))
+  ;; TODO 2022-10-19: More robust way to get this buffer?
+  (when-let ((buf (get-buffer "*vc-log*")))
+    (kill-buffer buf)))
 
 ;;;; Commands for log-view (listings of commits)
 
