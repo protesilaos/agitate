@@ -315,6 +315,11 @@ user option `log-edit-keep-buffer'."
                      display-buffer-alist)))
           (vc-print-root-log))))))
 
+;; FIXME 2022-10-20: Sometimes we get an error like:
+;;
+;; window-normalize-window: #<window 153> is not a live window
+;;
+;; What is the cause?
 (defun agitate--log-edit-informative-restore ()
   "Restore `agitate--previous-window-configuration' and clean state."
   (when agitate--previous-window-configuration
