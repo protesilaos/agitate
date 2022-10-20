@@ -287,9 +287,10 @@ user option `log-edit-keep-buffer'."
 
 (defun agitate--log-edit-informative-save-windows ()
   "Save `current-window-configuration'."
-  (setq agitate--previous-window (get-buffer-window)
-        agitate--previous-window-point (point)
-        agitate--previous-window-configuration (current-window-configuration)))
+  (let ((win (get-buffer-window)))
+    (setq agitate--previous-window win
+          agitate--previous-window-point (window-point win)
+          agitate--previous-window-configuration (current-window-configuration))))
 
 (defun agitate--log-edit-informative-setup ()
   "Set up informative `log-edit' window configuration."
