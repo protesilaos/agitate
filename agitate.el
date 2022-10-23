@@ -308,12 +308,11 @@ user option `log-edit-keep-buffer'."
       (log-edit-hide-buf log-edit-files-buf))
     (when agitate-log-edit-informative-show-root-log
       (save-selected-window
-        (let ((vc-log-show-limit agitate-log-limit)
-              (display-buffer-alist
+        (let ((display-buffer-alist
                (cons (list (cons 'derived-mode 'log-view-mode)
                            (list 'display-buffer-below-selected))
                      display-buffer-alist)))
-          (vc-print-root-log))))))
+          (vc-print-root-log agitate-log-limit))))))
 
 ;; FIXME 2022-10-20: Sometimes we get an error like:
 ;;
