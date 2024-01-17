@@ -7,11 +7,8 @@ Control framework and its accoutrements (`diff-mode.el`,
 `log-view.el`, `log-edit.el`, `vc-git.el`, and potentially others).
 
 + Package name (GNU ELPA): `agitate`
-+ Official manual: <https://protesilaos.com/emacs/agitate> (the manual is
-  installed with the package---evaluate `(info "(agitate) Top")`)
-+ Git repo on SourceHut: <https://git.sr.ht/~protesilaos/agitate>
-  - Mirrors:
-    + GitHub: <https://github.com/protesilaos/agitate>
-    + GitLab: <https://gitlab.com/protesilaos/agitate>
-+ Mailing list: <https://lists.sr.ht/~protesilaos/agitate>
-+ Backronym: Another Git Interface Trying to Agitate Tranquil Emacsers
++ Official manual: <https://protesilaos.com/emacs/agitate>
++ Git repositories:
+  + GitHub: <https://github.com/protesilaos/agitate>
+  + GitLab: <https://gitlab.com/protesilaos/agitate>
++ Backronym: Another Git Interface Trying to Agitate Tranquil Emacsers.

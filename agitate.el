@@ -3,9 +3,8 @@
 ;; Copyright (C) 2022-2024  Free Software Foundation, Inc.
 
 ;; Author: Protesilaos Stavrou <info@protesilaos.com>
-;; Maintainer: Agitate Development <~protesilaos/agitate@lists.sr.ht>
-;; URL: https://git.sr.ht/~protesilaos/agitate
-;; Mailing-List: https://lists.sr.ht/~protesilaos/agitate
+;; Maintainer: Protesilaos Stavrou <info@protesilaos.com>
+;; URL: https://github.com/protesilaos/agitate
 ;; Version: 0
 ;; Package-Requires: ((emacs "28.1"))
 ;; Keywords: convenience, version control, git
