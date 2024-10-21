@@ -662,7 +662,7 @@ such a case, do not prompt for a remote.
 
 To use this function add it as an override advice to
 `vc-git-push'."
-  (vc-git--pushpull "push" prompt (unless prompt `(,(agitate--vc-git-prompt-remote)))))
+  (vc-git--pushpull "push" prompt (list (agitate--vc-git-prompt-remote))))
 
 (provide 'agitate)
 ;;; agitate.el ends here
